@@ -1,6 +1,19 @@
 var should = require('should');
 var util = require('../').util;
 
+describe('util.squishName()', function() {
+  var squishName = util.squishName;
+
+  it('should ignore non-alphanumerics', function() {
+    squishName('lol?').should.eql('lol');
+    squishName('contact 1').should.eql('contact1');
+  });
+
+  it('should lowercase', function() {
+    squishName('Name of Organization').should.eql('nameoforganization');
+  });
+});
+
 describe('util.doesEmailMatch()', function() {
   var doesEmailMatch = util.doesEmailMatch;
 
