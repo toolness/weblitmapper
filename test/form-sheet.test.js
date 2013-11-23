@@ -3,7 +3,7 @@ var assert = require('should');
 var getFormSheet = require('../').getFormSheet;
 
 var EXAMPLE_SHEET = [
-  {'mainthing': 'here is help text for main thing'},
+  {'mainthing': 'main help text'},
   {'mainthing': 'main foo',
    'validemails': 'foo@example.org',
    'lasteditor': ''},
@@ -42,45 +42,74 @@ function FakeSheet(rawRows) {
   return self;
 }
 
+function getExample(email, cb) {
+  getFormSheet({
+    sheet: FakeSheet(EXAMPLE_SHEET),
+    fields: ['Main Thing'],
+    email: email
+  }, function(err, formSheet) {
+    assert(err === null);
+    cb(formSheet);
+  });
+}
+
 describe('form-sheet', function() {
-  it('works w/ emails that have access', function(done) {
-    getFormSheet({
-      sheet: FakeSheet(EXAMPLE_SHEET),
-      fields: ['Main Thing'],
-      email: 'bar@example.org'
-    }, function(err, formSheet) {
-      assert(err === null);
-      formSheet.canView.should.be.true;
+  it('includes help information for columns', function(done) {
+    getExample('bar@example.org', function(formSheet) {
+      formSheet.fields[0].help.should.eql('main help text');
+      done();
+    });
+  });
+
+  it('allows changing editable rows', function(done) {
+    getExample('bar@example.org', function(formSheet) {
       var row = formSheet.editableRow;
-      var col = row.column('Main Thing');
-      col.value.should.eql('main bar');
-      col.value = 'edited main bar';
+      row.column('Main Thing').value = 'edited main bar';
       row.save(function(err, numChanged) {
         assert(err === null);
         numChanged.should.eql(1);
         formSheet.sheet.rawRows[2]['mainthing'].should.eql('edited main bar');
-        row.save(function(err, numChanged) {
-          assert(err === null);          
-          numChanged.should.eql(0);
-          done();
-        });
+        done();
       });
     });
   });
 
-  it('works w/ emails that do not have access', function(done) {
-    getFormSheet({
-      sheet: FakeSheet(EXAMPLE_SHEET),
-      fields: ['Main Thing'],
-      email: 'zzz@example.org'
-    }, function(err, formSheet) {
-      assert(err === null);
-      formSheet.canView.should.be.false;
-      assert(formSheet.editableRow === null);
-      formSheet.rows[0].save(function(err) {
-        err.message.should.eql('row is not editable');
+  it('saves editable sheets that have no changes', function(done) {
+    getExample('bar@example.org', function(formSheet) {
+      formSheet.editableRow.save(function(err, numChanged) {
+        assert(err === null);          
+        numChanged.should.eql(0);
         done();
       });
+    });
+  });
+
+  it('allows reading by emails that have access', function(done) {
+    getExample('bar@example.org', function(formSheet) {
+      formSheet.canView.should.be.true;
+      var row = formSheet.editableRow;
+      var col = row.column('Main Thing');
+      col.value.should.eql('main bar');
+      done();
+    });
+  });
+
+  it('prevents saving of uneditable rows', function(done) {
+    getExample('bar@example.org', function(formSheet) {
+      formSheet.rows[0].column('Main Thing').value = 'CHANGED';
+      formSheet.rows[0].save(function(err) {
+        err.message.should.eql('row is not editable');
+        formSheet.sheet.rawRows[1]['mainthing'].should.eql('main foo');
+        done();
+      });
+    });
+  });
+
+  it('blocks emails that do not have access', function(done) {
+    getExample('zzz@example.org', function(formSheet) {
+      formSheet.canView.should.be.false;
+      assert(formSheet.editableRow === null);
+      done();
     });
   });
 });
