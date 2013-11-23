@@ -1,4 +1,5 @@
 var assert = require('should');
+var sinon = require('sinon');
 
 var getFormSheet = require('../').getFormSheet;
 
@@ -26,18 +27,23 @@ function FakeSheet(rawRows) {
   var self = {};
 
   rawRows = JSON.parse(JSON.stringify(rawRows)).map(makeFakeRow);
-  self.rawRows = rawRows;
-  self.getInfo = function(cb) {
-    process.nextTick(function() {
-      cb(null, {worksheets: [{
-        getRows: function(cb) {
-          process.nextTick(function() {
-            cb(null, rawRows);
-          });
-        }
-      }]});
-    });
+  self.info = {
+    updated: '2013-11-23T13:54:59.691Z 350',
+    worksheets: [{
+      id: 'worksheet',
+      getRows: sinon.spy(function(cb) {
+        process.nextTick(function() {
+          cb(null, rawRows);
+        });
+      })
+    }]
   };
+  self.rawRows = rawRows;
+  self.getInfo = sinon.spy(function(cb) {
+    process.nextTick(function() {
+      cb(null, self.info);
+    });
+  });
 
   return self;
 }
@@ -54,6 +60,21 @@ function getExample(email, cb) {
 }
 
 describe('form-sheet', function() {
+  it('transparently caches', function(done) {
+    var sheet = FakeSheet(EXAMPLE_SHEET);
+    var opts = {sheet: sheet, fields: [], email: 'u@example.org'};
+    getFormSheet(opts, function(err, formSheet) {
+      assert(err === null);
+      sheet.info.worksheets[0].getRows.callCount.should.eql(1);
+      sheet.getInfo.callCount.should.eql(1);
+      getFormSheet(opts, function(err, formSheet) {
+        sheet.info.worksheets[0].getRows.callCount.should.eql(1);
+        sheet.getInfo.callCount.should.eql(2);
+        done();
+      });
+    });
+  });
+
   it('includes help information for columns', function(done) {
     getExample('bar@example.org', function(formSheet) {
       formSheet.fields[0].help.should.eql('main help text');
