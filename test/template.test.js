@@ -45,6 +45,13 @@ describe("template middleware", function() {
       }
     }}).get('/email').expect('string0', done);
   });
+
+  it('defines the squishName filter', function() {
+    var squishName = testUtil.app().nunjucksEnv.getFilter('squishName');
+    squishName('Hey There').should.eql('heythere');
+    squishName({toString: function() { return 'HI'; }})
+      .should.eql('hi');
+  });
 });
 
 describe("layout.html", function() {
