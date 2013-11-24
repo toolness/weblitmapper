@@ -3,6 +3,7 @@
 var fs = require('fs');
 var url = require('url');
 var assert = require('assert');
+var GoogleSpreadsheet = require('google-spreadsheet');
 
 const PORT = process.env['PORT'] || 3000;
 const COOKIE_SECRET = process.env['COOKIE_SECRET'] || null;
@@ -13,6 +14,9 @@ const SSL_CERT = process.env['SSL_CERT'];
 const ORIGIN = process.env['ORIGIN'] || (DEBUG
   ? (SSL_KEY ? 'https' : 'http') + '://localhost:' + PORT
   : null);
+const SPREADSHEET_KEY = process.env['SPREADSHEET_KEY'];
+const SPREADSHEET_USER = process.env['SPREADSHEET_USER'];
+const SPREADSHEET_PASS = process.env['SPREADSHEET_PASS'];
 
 assert.ok(ORIGIN, 'ORIGIN env var should be defined.');
 assert.ok(COOKIE_SECRET, 'COOKIE_SECRET env var should be defined.');
@@ -24,8 +28,9 @@ if (SSL_KEY)
 if (ENABLE_STUBBYID)
   assert.ok(DEBUG, 'ENABLE_STUBBYID must be used with DEBUG.');
 
-function startServer() {
+function startServer(sheet) {
   var app = require('../').app.build({
+    sheet: sheet,
     cookieSecret: COOKIE_SECRET,
     debug: DEBUG,
     personaDefineRoutes: ENABLE_STUBBYID &&
@@ -54,4 +59,17 @@ function startServer() {
   });
 }
 
-startServer();
+function loadSheet() {
+  var sheet = new GoogleSpreadsheet(SPREADSHEET_KEY);
+
+  sheet.setAuth(SPREADSHEET_USER, SPREADSHEET_PASS, function(err) {
+    if (err) {
+      console.log("error connecting to spreadsheet");
+      throw err;
+    }
+
+    startServer(sheet);
+  });
+}
+
+loadSheet();

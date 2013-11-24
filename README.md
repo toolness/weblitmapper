@@ -28,6 +28,13 @@ Then visit http://localhost:3000.
 boolean value, if the variable exists with *any* value (even the empty
 string), the boolean is true; otherwise, it's false.
 
+* `SPREADSHEET_KEY` is the key of the Google Spreadsheet to use.
+
+* `SPREADSHEET_USER` is the Google accounts email to use when accessing
+  the spreadsheet.
+
+* `SPREADSHEET_PASS` is the password for the Google accounts email.
+
 * `COOKIE_SECRET` is the secret used to encrypt and sign cookies,
   to prevent tampering.
 
