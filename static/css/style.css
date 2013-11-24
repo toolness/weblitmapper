@@ -1,0 +1,27 @@
+h2 > a, h2 > a:hover {
+  color: inherit;
+}
+
+h2 > a:hover:after {
+  content: '#';
+  color: gray;
+}
+
+.content {
+  margin: 15px;
+}
+
+.org-mission, .org-contact {
+  margin: 1em 0;
+  white-space: pre-wrap;
+  line-height: 1.5em;
+}
+
+.org-contact {
+  font-size: 75%;
+}
+
+.org-url {
+  margin-top: -0.75em;
+  margin-bottom: 1em;
+}

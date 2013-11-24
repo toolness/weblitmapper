@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  {% for row in sheet.rows %}
+    <h2 id="{{ row.column('Name of Organization')|squishName }}">
+      <a href="#{{ row.column('Name of Organization')|squishName }}">
+        {{ row.column('Name of Organization') }}
+      </a>
+    </h2>
+    <div class="org-url">
+      <a href="{{ row.column('URL')|normalizeURL }}">
+        {{ row.column('URL')|domain }}
+      </a>
+    </div>
+    <div>
+      {% if row.column('Hive Member Since').value %}
+      <span class="label secondary">
+        Hive member since {{ row.column('Hive Member Since') }}
+      </span>
+      {% endif %}
+    </div>
+    <div class="org-mission">{{ row.column('Organizational Mission') }}</div>
+    {% if sheet.canView %}
+      {% if row.column('Contact 1').value %}
+      <h4 class="subheader">Contact</h4>
+      <div class="org-contact">{{ row.column('Contact 1') }}</div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}

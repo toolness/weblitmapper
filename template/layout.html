@@ -4,26 +4,43 @@
   <meta name="csrf" content="{{ csrfToken }}">
   <meta name="email" content="{{ email }}">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <link rel="stylesheet" href="/vendor/normalize.css">
+  <link rel="stylesheet" href="/vendor/foundation{{ DOT_MIN }}.css">
+  <link rel="stylesheet" href="/css/style.css">
   {% block head %}{% endblock %}
-  <title>{% block title %}Hive Directory{% endblock %}</title>
+  <title>{% block title %}Hive Member Directory{% endblock %}</title>
 </head>
 <body>
-  {% set flashMessages = fetchAndClearFlashMessages() %}
-  {% for message in flashMessages %}
-    <div class="{{ message.category }}">
-      {{ message.content }}
-    </div>
-  {% endfor %}
+  <nav class="top-bar">
+    <ul class="title-area">
+      <li class="name"> <h1><a href="/">Hive Member Directory</a></h1> </li>
+    </ul>
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-form">
+          {% if email %}
+            <button class="button js-logout">Logout {{email}}</button>
+          {% else %}
+            <button class="button js-login">Login</button>
+          {% endif %}
+        </li>
+      </ul>
+    </section>
+  </nav>
 
-  <div>
-    {% if email %}
-      <button class="js-logout" title="Logout {{email}}.">Logout</button>
-    {% else %}
-      <button class="js-login">Login</button>
-    {% endif %}
+  <div class="content">
+
+    {% set flashMessages = fetchAndClearFlashMessages() %}
+    {% for message in flashMessages %}
+      <div class="alert-box {{ message.category }}">
+        {{ message.content }}
+      </div>
+    {% endfor %}
+
+    {% block content %}{% endblock %}
+
   </div>
-
-  {% block content %}{% endblock %}
 
   <script src="/vendor/jquery{{ DOT_MIN }}.js"></script>
   <script src="{{ PERSONA_JS_URL }}"></script>
