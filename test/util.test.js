@@ -42,3 +42,39 @@ describe('util.doesEmailMatch()', function() {
       .should.be.true;
   });
 });
+
+describe('util.getDomain()', function() {
+  var getDomain = util.getDomain;
+
+  it('should work w/ URLs that have no protocol', function() {
+    getDomain('foo.org/blah').should.eql('foo.org');
+  });
+
+  it('should work w/ URLs that have a protocol', function() {
+    getDomain('http://foo.org/blah').should.eql('foo.org');
+  });
+
+  it('should work w/ empty strings', function() {
+    getDomain('').should.eql('');
+  });
+});
+
+describe('util.normalizeURL()', function() {
+  var normalizeURL = util.normalizeURL;
+
+  it('should add http:\/\/ to URLs w/o protocols', function() {
+    normalizeURL('example.org').should.eql('http://example.org');
+  });
+
+  it('should return http URLs unmodified', function() {
+    normalizeURL('http://example.org').should.eql('http://example.org');
+  });
+
+  it('should return https URLs unmodified', function() {
+    normalizeURL('https://example.org').should.eql('https://example.org');
+  });
+
+  it('should work w/ empty strings', function() {
+    normalizeURL('').should.eql('http://');
+  });
+});
