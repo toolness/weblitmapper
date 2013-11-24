@@ -3,6 +3,10 @@ var _ = require('underscore');
 var testUtil = require('./lib/util');
 var request = testUtil.request;
 
+function objectifyStr(str) {
+  return {toString: function() { return str; }}
+}
+
 describe("template middleware", function() {
   it('auto-escapes template variables', function(done) {
     request({
@@ -46,11 +50,22 @@ describe("template middleware", function() {
     }}).get('/email').expect('string0', done);
   });
 
+  it('defines the normalizeURL filter', function() {
+    var normalizeURL = testUtil.app().nunjucksEnv.getFilter('normalizeURL');
+    normalizeURL('foo.org/blah').should.eql('http://foo.org/blah');
+    normalizeURL(objectifyStr('o.org')).should.eql('http://o.org');
+  });
+
+  it('defines the domain filter', function() {
+    var domain = testUtil.app().nunjucksEnv.getFilter('domain');
+    domain('foo.org/blah').should.eql('foo.org');
+    domain(objectifyStr('o.org/')).should.eql('o.org');
+  });
+
   it('defines the squishName filter', function() {
     var squishName = testUtil.app().nunjucksEnv.getFilter('squishName');
     squishName('Hey There').should.eql('heythere');
-    squishName({toString: function() { return 'HI'; }})
-      .should.eql('hi');
+    squishName(objectifyStr('HI')).should.eql('hi');
   });
 });
 
