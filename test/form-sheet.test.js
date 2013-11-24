@@ -75,6 +75,21 @@ describe('form-sheet', function() {
     });
   });
 
+  it('allows email to be null/undefined', function(done) {
+    getExample(undefined, function(formSheet) {
+      formSheet.canView.should.be.false;
+      done();
+    });
+  });
+
+  it('defines toString() on columns to return value', function(done) {
+    getExample(undefined, function(formSheet) {
+      var col = formSheet.rows[0].column('Main Thing');
+      col.toString().should.eql(col.value);
+      done();
+    });
+  });
+
   it('includes help information for columns', function(done) {
     getExample('bar@example.org', function(formSheet) {
       formSheet.fields[0].help.should.eql('main help text');
