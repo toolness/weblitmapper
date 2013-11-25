@@ -25,3 +25,9 @@ h2 > a:hover:after {
   margin-top: -0.75em;
   margin-bottom: 1em;
 }
+
+form aside {
+  color: gray;
+  font-size: smaller;
+  margin-bottom: 1em;
+}
