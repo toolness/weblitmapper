@@ -31,3 +31,9 @@ form aside {
   font-size: smaller;
   margin-bottom: 1em;
 }
+
+.stubbyid button {
+  padding: 2px 6px;
+  font-size: smaller;
+  margin: 0px;
+}
