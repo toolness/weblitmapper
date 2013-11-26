@@ -27,28 +27,7 @@
       {% endif %}
     {% endif %}
     {% if row.isEditable %}
-      <button class="js-edit-org-info">Edit Information</button>
-      <div class="js-edit-org-info-form" style="display: none">
-        <h4>Edit Information</h4>
-        <p>Use the form below to make any changes to this organization's
-          information.</p>
-        <form method="POST" action="/edit">
-          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-          <input type="hidden" name="id" value="{{ row.id }}">
-          {% for column in row %}
-            <div class="row">
-              <div class="large-12 columns">
-                <label>{{ column.name }}</label>
-                {% if column.help %}
-                  <aside>{{ column.help }}</aside>
-                {% endif %}
-                <textarea name="{{ column.id }}">{{ column.value }}</textarea>
-              </div>
-            </div>
-          {% endfor %}
-          <button type="submit">Submit Changes</button>
-        </form>
-      </div>
+      {% include "edit.html" %}
     {% endif %}
   {% endfor %}
 {% endblock %}
