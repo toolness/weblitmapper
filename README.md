@@ -17,10 +17,13 @@ git clone git://github.com/toolness/hive-directory.git
 cd hive-directory
 npm install
 npm test
-DEBUG= COOKIE_SECRET=cookie node bin/hive-directory.js
+export SPREADSHEET_URL=test/sample.json
+export COOKIE_SECRET=cookie
+DEBUG= ENABLE_STUBBYID= node bin/hive-directory.js
 ```
 
-Then visit http://localhost:3000.
+Then visit http://localhost:3000. Login as anyone at amnh.org to access
+the site as a Hive member.
 
 ## Environment Variables
 
@@ -28,10 +31,15 @@ Then visit http://localhost:3000.
 boolean value, if the variable exists with *any* value (even the empty
 string), the boolean is true; otherwise, it's false.
 
-* `SPREADSHEET_URL` is the URL of the spreadsheet to use. Currently,
-  only Google spreadsheets are supported; simply take the URL of the
-  spreadsheet and add auth information before the hostname, e.g.
-  `https://USER@gmail.com:PASS@docs.google.com/spreadsheet/ccc?key=KEY`.
+* `SPREADSHEET_URL` is the URL of the spreadsheet to use. Options
+  include:
+    * A Google spreadsheet. Simply take the URL of the
+      spreadsheet and add auth information before the hostname. Example:
+      `https://USER@gmail.com:PASS@docs.google.com/spreadsheet/ccc?key=KEY`.
+    * A JSON file. Simply include the path to a JSON file containing row
+      data. See `test/sample.json` for an example. This is for testing
+      purposes only, and the JSON file is never written to (changes made
+      via the website are saved in-memory only). Example: `test/sample.json`.
 
 * `COOKIE_SECRET` is the secret used to encrypt and sign cookies,
   to prevent tampering.
