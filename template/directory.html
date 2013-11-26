@@ -1,6 +1,13 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+  {% if org %}
+    <p>Hello, <a href="#{{ org|squishName }}">{{ org }}</a> member.</p>
+  {% else %}
+    <p>Welcome to the Hive Member Directory. If you log in using an
+    email address registered for your organization, you can view
+    members-only information and edit your organization's record.</p>
+  {% endif %}
   {% for row in sheet.rows %}
     <h2 id="{{ row.val('Name of Organization')|squishName }}">
       <a href="#{{ row.val('Name of Organization')|squishName }}">
