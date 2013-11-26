@@ -3,11 +3,13 @@ var request = require('supertest');
 var should = require('should');
 
 var appLib = require('../../');
+var FakeSheet = require('./fake-sheet');
 
 exports.app = function(options) {
   options = _.defaults(options || {}, {
     origin: 'http://example.org',
-    cookieSecret: 's3cret'
+    cookieSecret: 's3cret',
+    sheet: FakeSheet(require('../sample.json'))
   });
 
   if (options.testRoutes) {
