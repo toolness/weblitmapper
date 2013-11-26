@@ -2,28 +2,28 @@
 
 {% block content %}
   {% for row in sheet.rows %}
-    <h2 id="{{ row.column('Name of Organization')|squishName }}">
-      <a href="#{{ row.column('Name of Organization')|squishName }}">
-        {{ row.column('Name of Organization') }}
+    <h2 id="{{ row.val('Name of Organization')|squishName }}">
+      <a href="#{{ row.val('Name of Organization')|squishName }}">
+        {{ row.val('Name of Organization') }}
       </a>
     </h2>
     <div class="org-url">
-      <a href="{{ row.column('URL')|normalizeURL }}">
-        {{ row.column('URL')|domain }}
+      <a href="{{ row.val('URL')|normalizeURL }}">
+        {{ row.val('URL')|domain }}
       </a>
     </div>
     <div>
-      {% if row.column('Hive Member Since').value %}
+      {% if row.val('Hive Member Since') %}
       <span class="label secondary">
-        Hive member since {{ row.column('Hive Member Since') }}
+        Hive member since {{ row.val('Hive Member Since') }}
       </span>
       {% endif %}
     </div>
-    <div class="org-mission">{{ row.column('Organizational Mission') }}</div>
+    <div class="org-mission">{{ row.val('Organizational Mission') }}</div>
     {% if sheet.canView %}
-      {% if row.column('Contact 1').value %}
+      {% if row.val('Contact 1') %}
       <h4 class="subheader">Contact</h4>
-      <div class="org-contact">{{ row.column('Contact 1') }}</div>
+      <div class="org-contact">{{ row.val('Contact 1') }}</div>
       {% endif %}
     {% endif %}
     {% if row.isEditable %}

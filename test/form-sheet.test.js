@@ -97,6 +97,15 @@ describe('form-sheet', function() {
     });
   });
 
+  it('always provides a string with .val()', function(done) {
+    getExample('bar@example.org', function(formSheet) {
+      var row = formSheet.editableRow;
+      row.val('Main Thing').should.be.a('string');
+      row.val('Nonexistent Column').should.be.a('string');
+      done();
+    });
+  });
+
   it('allows changing editable rows', function(done) {
     getExample('bar@example.org', function(formSheet) {
       var row = formSheet.editableRow;
