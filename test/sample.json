@@ -40,5 +40,28 @@
     "yourname": "John Doe",
     "validemails": "anyone@amnh.org",
     "lasteditor": ""
+  },
+  {
+    "timestamp": "",
+    "untitledquestion": "",
+    "nameoforganization": "Bank Street College of Education",
+    "url": "http://www.bankstreet.edu",
+    "contact1": "Bob Doe\nAssociate Director of Institutional Giving\n555-214-9214\nbobdoe@bankstreet.edu",
+    "contact2": "",
+    "contact3": "",
+    "othercontacts": "",
+    "mailingaddress": "610 W. 112 St.\nNew York, NY 10025",
+    "facebook": "https://www.facebook.com/bankstreetcollege",
+    "twitter": "http://twitter.com/bankstreetedu",
+    "blog": "http://bankstreetcollege.wordpress.com/",
+    "youtube": "http://www.youtube.com/user/bankstreetnyc",
+    "flickr": "",
+    "othersocialcontentchannels": "",
+    "youthaudience": "Middle and high school students and Higher ed",
+    "hivemembersince": "founding",
+    "organizationalmission": "The mission of Bank Street College is to improve the education of children and their teachers by applying to the educational process all available knowledge about learning and growth, and by connecting teaching and learning meaningfully to the outside world. In so doing, we seek to strengthen not only individuals, but the community as well, including family, school, and the larger society in which adults and children, in all their diversity, interact and learn. We see in education the opportunity to build a better society.",
+    "yourname": "Bob Doe",
+    "validemails": "anyone@bankstreet.edu",
+    "lasteditor": ""
   }
 ]
