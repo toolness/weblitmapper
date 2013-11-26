@@ -19,13 +19,18 @@
         {{ row.val('URL')|domain }}
       </a>
     </div>
-    <div>
+    <ul class="inline-list general-info">
       {% if row.val('Hive Member Since') %}
-      <span class="label secondary">
-        Hive member since {{ row.val('Hive Member Since') }}
-      </span>
+        <li><span class="label secondary">
+          Hive member since {{ row.val('Hive Member Since') }}
+        </span></li>
       {% endif %}
-    </div>
+      {% if row.val('Youth Audience') %}
+        <li><span class="label secondary">
+          Audience is {{ row.val('Youth Audience') }}
+        </span></li>
+      {% endif %}
+    </ul>
     <div class="org-mission">{{ row.val('Organizational Mission') }}</div>
     <ul class="inline-list social-links">
       {% if row.val('Facebook') %}
