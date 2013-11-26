@@ -11,18 +11,23 @@ h2 > a:hover:after {
   margin: 15px;
 }
 
-.org-mission, .org-contact {
+.org-mission, .org-contact, .org-address {
   margin: 1em 0;
   white-space: pre-wrap;
   line-height: 1.5em;
 }
 
-.org-contact {
+.org-contact, .org-address, .map {
   font-size: 75%;
 }
 
 .org-url {
   margin-top: -0.75em;
+  margin-bottom: 1em;
+}
+
+.map {
+  margin-top: -1em;
   margin-bottom: 1em;
 }
 

@@ -44,6 +44,11 @@
       <h4 class="subheader">Contact</h4>
       <div class="org-contact">{{ row.val('Contact 1') }}</div>
       {% endif %}
+      {% if row.val('Mailing Address') %}
+      <h4 class="subheader">Mailing Address</h4>
+      <div class="org-address">{{ row.val('Mailing Address') }}</div>
+      <div class="map"><a href="https://maps.google.com/?q={{ row.val('Mailing Address')|encodeURIComponent }}">Map</a></div>
+      {% endif %}
     {% endif %}
     {% if row.isEditable %}
       {% include "edit.html" %}
