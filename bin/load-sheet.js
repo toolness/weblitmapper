@@ -1,12 +1,30 @@
 var url = require('url');
 var path = require('path');
+var fs = require('fs');
 var assert = require('assert');
 
 var GoogleSpreadsheet = require('google-spreadsheet');
-var squishName = require('../').util.squishName;
-var SHEET_FIELDS = require('../').website.SHEET_FIELDS;
 
-assert.ok(SHEET_FIELDS && squishName);
+function loadJSONFile(filename, cb) {
+  var updated = fs.statSync(filename).mtime.toISOString();
+  var rows = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+  var FakeSheet = require('../test/lib/fake-sheet');
+
+  process.nextTick(function() {
+    cb(null, new FakeSheet(rows, updated));
+  });
+}
+
+function loadGoogleSpreadsheet(sheetInfo, cb) {
+  var sheet = new GoogleSpreadsheet(sheetInfo.query.key);
+
+  if (sheetInfo.auth) {
+    var auth = sheetInfo.auth.split(':');
+
+    sheet.setAuth(auth[0], auth[1], function(err) { cb(err, sheet); });
+  } else
+    cb(null, sheet);
+}
 
 function loadSheet(sheetURL, cb) {
   var sheetInfo = url.parse(sheetURL, true);
@@ -14,14 +32,10 @@ function loadSheet(sheetURL, cb) {
   if (sheetInfo.protocol == 'https:' &&
       sheetInfo.host == 'docs.google.com' &&
       'key' in sheetInfo.query) {
-    var sheet = new GoogleSpreadsheet(sheetInfo.query.key);
-
-    if (sheetInfo.auth) {
-      var auth = sheetInfo.auth.split(':');
-
-      sheet.setAuth(auth[0], auth[1], function(err) { cb(err, sheet); });
-    } else
-      cb(null, sheet);
+    loadGoogleSpreadsheet(sheetInfo, cb);
+  } else if (!sheetInfo.protocol &&
+             /\.json$/.test(sheetInfo.path)) {
+    loadJSONFile(sheetInfo.path, cb);
   } else
     cb(new Error('Unknown spreadsheet URL: ' + sheetURL));
 }
@@ -49,10 +63,12 @@ if (!module.parent) {
         rows = rows.map(function(row) {
           var newRow = {};
 
-          SHEET_FIELDS.forEach(function(field) {
-            var squished = squishName(field);
-
-            if (squished in row) newRow[squished] = row[squished];
+          Object.keys(row).forEach(function(field) {
+            if (field[0] == '_' ||
+                field == 'id' ||
+                field == 'title' ||
+                field == 'content') return;
+            newRow[field] = row[field];
           });
 
           return newRow;

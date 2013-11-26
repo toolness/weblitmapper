@@ -1,7 +1,7 @@
 var assert = require('should');
-var sinon = require('sinon');
 
 var getFormSheet = require('../').getFormSheet;
+var FakeSheet = require('./lib/fake-sheet');
 
 var EXAMPLE_SHEET = [
   {'mainthing': 'main help text'},
@@ -12,41 +12,6 @@ var EXAMPLE_SHEET = [
    'validemails': 'bar@example.org',
    'lasteditor': ''}
 ];
-
-function makeFakeRow(fields) {
-  fields.save = function(cb) {
-    process.nextTick(function() {
-      cb(null);
-    });
-  };
-
-  return fields;
-}
-
-function FakeSheet(rawRows) {
-  var self = {};
-
-  rawRows = JSON.parse(JSON.stringify(rawRows)).map(makeFakeRow);
-  self.info = {
-    updated: '2013-11-23T13:54:59.691Z 350',
-    worksheets: [{
-      id: 'worksheet',
-      getRows: sinon.spy(function(cb) {
-        process.nextTick(function() {
-          cb(null, rawRows);
-        });
-      })
-    }]
-  };
-  self.rawRows = rawRows;
-  self.getInfo = sinon.spy(function(cb) {
-    process.nextTick(function() {
-      cb(null, self.info);
-    });
-  });
-
-  return self;
-}
 
 function getExample(email, cb) {
   getFormSheet({
