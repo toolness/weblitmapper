@@ -3,7 +3,8 @@
 var fs = require('fs');
 var url = require('url');
 var assert = require('assert');
-var GoogleSpreadsheet = require('google-spreadsheet');
+
+var loadSheet = require('./load-sheet');
 
 const PORT = process.env['PORT'] || 3000;
 const COOKIE_SECRET = process.env['COOKIE_SECRET'] || null;
@@ -16,6 +17,7 @@ const ORIGIN = process.env['ORIGIN'] || (DEBUG
   : null);
 const SPREADSHEET_URL = process.env['SPREADSHEET_URL'];
 
+assert.ok(SPREADSHEET_URL, 'SPREADSHEET_URL env var should be defined.');
 assert.ok(ORIGIN, 'ORIGIN env var should be defined.');
 assert.ok(COOKIE_SECRET, 'COOKIE_SECRET env var should be defined.');
 assert.ok((SSL_KEY && SSL_CERT) || (!SSL_KEY && !SSL_CERT),
@@ -57,30 +59,8 @@ function startServer(sheet) {
   });
 }
 
-function loadSheet(cb) {
-  var sheetInfo = url.parse(SPREADSHEET_URL, true);
+loadSheet(SPREADSHEET_URL, function(err, sheet) {
+  if (err) throw err;
 
-  if (sheetInfo.protocol == 'https:' &&
-      sheetInfo.host == 'docs.google.com' &&
-      'key' in sheetInfo.query) {
-    var sheet = new GoogleSpreadsheet(sheetInfo.query.key);
-
-    if (sheetInfo.auth) {
-      var auth = sheetInfo.auth.split(':');
-
-      sheet.setAuth(auth[0], auth[1], function(err) {
-        if (err) {
-          console.log("error authenticating spreadsheet");
-          throw err;
-        }
-
-        cb(sheet);
-      });
-    } else
-      cb(sheet);
-  } else {
-    throw new Error('Unknown SPREADSHEET_URL: ' + SPREADSHEET_URL);
-  }
-}
-
-loadSheet(startServer);
+  startServer(sheet);
+});
