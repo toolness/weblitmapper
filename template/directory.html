@@ -27,6 +27,18 @@
       {% endif %}
     </div>
     <div class="org-mission">{{ row.val('Organizational Mission') }}</div>
+    <ul class="inline-list social-links">
+      {% if row.val('Facebook') %}
+        <li><a href="{{ row.val('Facebook')|normalizeURL }}">
+          <img src="/vendor/justvector/facebook_alt.png" alt="Facebook">
+        </a></li>
+      {% endif %}
+      {% if row.val('Blog') %}
+        <li><a href="{{ row.val('Blog')|normalizeURL }}">
+          <img src="/vendor/justvector/rss.png" alt="Blog">
+        </a></li>
+      {% endif %}
+    </ul>
     {% if sheet.canView %}
       {% if row.val('Contact 1') %}
       <h4 class="subheader">Contact</h4>

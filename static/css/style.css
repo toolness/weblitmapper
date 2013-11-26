@@ -37,3 +37,17 @@ form aside {
   font-size: smaller;
   margin: 0px;
 }
+
+.social-links img {
+  height: 24px;
+  width: 24px;
+}
+
+.social-links a {
+  opacity: 0.5;
+  transition: opacity 0.25s;
+}
+
+.social-links a:hover {
+  opacity: 1;
+}
