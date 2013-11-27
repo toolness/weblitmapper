@@ -43,12 +43,13 @@ exports.request = function(options) {
 
 var FakeLoader = exports.templateLoader = function FakeLoader(map) {
   return {
+    // Weird, nunjucks docs don't document this, but it's apparently needed.
+    on: function() {}, 
     getSource: function(name) {
       if (name in map) {
         return {
           src: map[name],
-          path: name,
-          upToDate: function() { return true; }
+          path: name
         };
       }
     }

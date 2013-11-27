@@ -37,9 +37,10 @@ describe("template middleware", function() {
   it('defines csrfToken in res.locals', function(done) {
     request({testRoutes: {
       'GET /csrf': function(req, res) {
-        res.send(typeof(res.locals.csrfToken) + res.locals.csrfToken.length);
+        var len = res.locals.csrfToken && res.locals.csrfToken.length;
+        res.send(typeof(res.locals.csrfToken) + len);
       }
-    }}).get('/csrf').expect('string24', done);
+    }}).get('/csrf').expect('string38', done);
   });
 
   it('defines email in res.locals', function(done) {

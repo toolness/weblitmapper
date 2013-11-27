@@ -19,6 +19,14 @@ describe("app", function() {
       });
   });
 
+  it('reports errors that are numbers', function(done) {
+    request({testRoutes: {
+      'GET /418': function(req, res, next) { next(418); }
+    }})
+      .get('/418')
+      .expect(418, done);
+  });
+
   it('protects POST endpoints with CSRF', function(done) {
     request()
       .post('/blargy')

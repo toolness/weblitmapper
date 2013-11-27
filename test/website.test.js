@@ -17,8 +17,9 @@ describe("website", function() {
     app = express();
     sheet = FakeSheet(ROWS);
 
-    app.use(express.bodyParser());
+    app.use(express.json());
     app.use(function(req, res, next) {
+      req.csrfToken = function() { return 'irrelevant'; }
       req.session = {email: email};
       next();
     });
@@ -26,8 +27,8 @@ describe("website", function() {
     template.express(app, {});
     website.express(app, {sheet: sheet});
     app.use(function(err, req, res, next) {
-      if (err.name && err.status)
-        return res.send(err.status, err.name);
+      if (typeof(err) == 'number')
+        return res.send(err);
       throw err;
     });
 

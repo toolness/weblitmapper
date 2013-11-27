@@ -13,11 +13,11 @@
     "supertest": "0.7.1"
   },
   "dependencies": {
-    "express": "3.0.6",
+    "express": "3.4.4",
     "connect-flash": "0.1.1",
-    "client-sessions": "0.3.1",
+    "client-sessions": "0.4.1",
     "express-persona": "0.0.9",
-    "nunjucks": "0.1.10",
+    "nunjucks": "1.0",
     "google-spreadsheet": "0.2.5",
     "underscore": "1.5.1"
   },
