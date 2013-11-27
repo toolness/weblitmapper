@@ -15,6 +15,7 @@ const SSL_CERT = process.env['SSL_CERT'];
 const ORIGIN = process.env['ORIGIN'] || (DEBUG
   ? (SSL_KEY ? 'https' : 'http') + '://localhost:' + PORT
   : null);
+const STATIC_ROOT = process.env['STATIC_ROOT'] || ORIGIN;
 const SPREADSHEET_URL = process.env['SPREADSHEET_URL'];
 
 assert.ok(SPREADSHEET_URL, 'SPREADSHEET_URL env var should be defined.');
@@ -35,7 +36,8 @@ function startServer(sheet) {
     debug: DEBUG,
     personaDefineRoutes: ENABLE_STUBBYID &&
                          require('../test/lib/stubbyid-persona'),
-    personaJsUrl: ENABLE_STUBBYID && '/vendor/stubbyid.js',
+    personaJsUrl: ENABLE_STUBBYID && (STATIC_ROOT + '/vendor/stubbyid.js'),
+    staticRoot: STATIC_ROOT,
     origin: ORIGIN
   });
 

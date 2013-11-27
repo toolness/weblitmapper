@@ -5,9 +5,9 @@
   <meta name="email" content="{{ email }}">
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <link rel="stylesheet" href="/vendor/normalize.css">
-  <link rel="stylesheet" href="/vendor/foundation{{ DOT_MIN }}.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="{{ STATIC_ROOT }}/vendor/normalize.css">
+  <link rel="stylesheet" href="{{ STATIC_ROOT }}/vendor/foundation{{ DOT_MIN }}.css">
+  <link rel="stylesheet" href="{{ STATIC_ROOT }}/css/style.css">
   {% block head %}{% endblock %}
   <title>{% block title %}Hive Member Directory{% endblock %}</title>
 </head>
@@ -43,8 +43,8 @@
 
   </div>
 
-  <script src="/vendor/jquery{{ DOT_MIN }}.js"></script>
+  <script src="{{ STATIC_ROOT }}/vendor/jquery{{ DOT_MIN }}.js"></script>
   <script src="{{ PERSONA_JS_URL }}"></script>
-  <script src="/js/login.js"></script>
+  <script src="{{ STATIC_ROOT }}/js/login.js"></script>
   {% block scripts %}{% endblock %}
 </body>

@@ -35,12 +35,12 @@
     <ul class="inline-list social-links">
       {% if row.val('Facebook') %}
         <li><a href="{{ row.val('Facebook')|normalizeURL }}">
-          <img src="/vendor/justvector/facebook_alt.png" alt="Facebook">
+          <img src="{{ STATIC_ROOT }}/vendor/justvector/facebook_alt.png" alt="Facebook">
         </a></li>
       {% endif %}
       {% if row.val('Blog') %}
         <li><a href="{{ row.val('Blog')|normalizeURL }}">
-          <img src="/vendor/justvector/rss.png" alt="Blog">
+          <img src="{{ STATIC_ROOT }}/vendor/justvector/rss.png" alt="Blog">
         </a></li>
       {% endif %}
     </ul>
@@ -62,5 +62,5 @@
 {% endblock %}
 
 {% block scripts %}
-  <script src="/js/directory.js"></script>
+  <script src="{{ STATIC_ROOT }}/js/directory.js"></script>
 {% endblock %}

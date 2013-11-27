@@ -1,6 +1,12 @@
 var request = require('./lib/util').request;
 
 describe("app security headers", function() {
+  it('add staticRoot to content security policy', function(done) {
+    request({staticRoot: 'http://example.org'})
+      .get('/')
+      .expect('Content-Security-Policy', /http:\/\/example\.org/, done);
+  });
+
   it('enable HSTS if protocol is HTTPS', function(done) {
     request({origin: 'https://foo.org'})
       .get('/')

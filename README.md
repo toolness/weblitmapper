@@ -70,6 +70,10 @@ string), the boolean is true; otherwise, it's false.
   than HTTP, and the `SSL_KEY` environment variable must also
   be defined.
 
+* `STATIC_ROOT` is a URL pointing to the location of static assets. If
+  not provided, the app will self-host its own static assets. Note that
+  this URL should *not* end with a `/`.
+
 ## Tests
 
 All tests can be run via `npm test`.
