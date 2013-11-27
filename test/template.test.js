@@ -8,6 +8,11 @@ function objectifyStr(str) {
 }
 
 describe("template middleware", function() {
+  it('instantiates HttpLoader if needed', function() {
+    var app = testUtil.app({templateUrl: 'http://example.org'});
+    app.nunjucksEnv.loaders[0].constructor.name.should.eql('HttpLoader');
+  });
+
   it('auto-escapes template variables', function(done) {
     request({
       testRoutes: {

@@ -17,6 +17,7 @@ const ORIGIN = process.env['ORIGIN'] || (DEBUG
   : null);
 const STATIC_ROOT = process.env['STATIC_ROOT'] || ORIGIN;
 const SPREADSHEET_URL = process.env['SPREADSHEET_URL'];
+const TEMPLATE_URL = process.env['TEMPLATE_URL'];
 
 assert.ok(SPREADSHEET_URL, 'SPREADSHEET_URL env var should be defined.');
 assert.ok(ORIGIN, 'ORIGIN env var should be defined.');
@@ -38,6 +39,7 @@ function startServer(sheet) {
                          require('../test/lib/stubbyid-persona'),
     personaJsUrl: ENABLE_STUBBYID && (STATIC_ROOT + '/vendor/stubbyid.js'),
     staticRoot: STATIC_ROOT,
+    templateUrl: TEMPLATE_URL,
     origin: ORIGIN
   });
 

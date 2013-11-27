@@ -19,6 +19,7 @@
     "express-persona": "0.0.9",
     "nunjucks": "1.0",
     "google-spreadsheet": "0.2.5",
+    "request": "2.27.0",
     "underscore": "1.5.1"
   },
   "engines": {

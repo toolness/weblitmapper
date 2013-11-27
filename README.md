@@ -74,6 +74,12 @@ string), the boolean is true; otherwise, it's false.
   not provided, the app will self-host its own static assets. Note that
   this URL should *not* end with a `/`.
 
+* `TEMPLATE_URL` is a URL pointing to the location of template files.
+  If not provided, the app will load templates from the filesystem. Note
+  that if this environment variable is defined, the querystring argument
+  `reloadtemplates=1` must be defined in order for the templates to
+  be reloaded.
+
 ## Tests
 
 All tests can be run via `npm test`.
