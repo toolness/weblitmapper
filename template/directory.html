@@ -8,7 +8,7 @@
     email address registered for your organization, you can view
     members-only information and edit your organization's record.</p>
   {% endif %}
-  {% for row in sheet.rows %}
+  {% asyncEach row in sheet.rows %}
     <h2 id="{{ row.val('Name of Organization')|squishName }}">
       <a href="#{{ row.val('Name of Organization')|squishName }}">
         {{ row.val('Name of Organization') }}
@@ -58,7 +58,7 @@
     {% if row.isEditable %}
       {% include "edit.html" %}
     {% endif %}
-  {% endfor %}
+  {% endeach %}
 {% endblock %}
 
 {% block scripts %}
