@@ -5,6 +5,8 @@ var assert = require('assert');
 
 var GoogleSpreadsheet = require('google-spreadsheet');
 
+var getSquishedNames = require('../').getFormSheet.getSquishedNames;
+
 function loadJSONFile(filename, cb) {
   var updated = fs.statSync(filename).mtime.toISOString();
   var rows = JSON.parse(fs.readFileSync(filename, 'utf-8'));
@@ -59,15 +61,12 @@ if (!module.parent) {
 
       info.worksheets[0].getRows(function(err, rows) {
         if (err) throw err;
+        var squishedNames = getSquishedNames(rows[0]);
 
         rows = rows.map(function(row) {
           var newRow = {};
 
-          Object.keys(row).forEach(function(field) {
-            if (field[0] == '_' ||
-                field == 'id' ||
-                field == 'title' ||
-                field == 'content') return;
+          squishedNames.forEach(function(field) {
             newRow[field] = row[field];
           });
 

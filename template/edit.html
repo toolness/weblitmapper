@@ -3,13 +3,32 @@
   <h4>Edit Information</h4>
   <p>Use the form below to make any changes to this organization's
     information.</p>
+  {% set columnNames = [
+       'Name of Organization',
+       'URL',
+       'Contact 1',
+       'Contact 2',
+       'Contact 3',
+       'Other Contacts',
+       'Mailing Address',
+       'Facebook',
+       'Twitter',
+       'Blog',
+       'YouTube',
+       'Flickr',
+       'Other Social Content Channels',
+       'Youth Audience',
+       'Hive Member Since',
+       'Organizational Mission'
+     ] %}
   <form method="POST" action="/edit">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     <input type="hidden" name="id" value="{{ row.id }}">
-    {% for column in row %}
+    {% for columnName in columnNames %}
+      {% set column = row.column(columnName) %}
       <div class="row">
         <div class="large-12 columns">
-          <label>{{ column.name }}</label>
+          <label>{{ columnName }}</label>
           {% if column.help %}
             <aside>{{ column.help }}</aside>
           {% endif %}

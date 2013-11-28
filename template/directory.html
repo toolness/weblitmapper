@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  {% if org %}
+  {% if sheet.editableRow %}
+    {% set org = sheet.editableRow.val('Name of Organization') %}
     <p>Hello, <a href="#{{ org|squishName }}">{{ org }}</a> member.</p>
   {% else %}
     <p>Welcome to the Hive Member Directory. If you log in using an

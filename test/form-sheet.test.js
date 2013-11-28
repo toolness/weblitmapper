@@ -16,7 +16,6 @@ var EXAMPLE_SHEET = [
 function getExample(email, cb) {
   getFormSheet({
     sheet: FakeSheet(EXAMPLE_SHEET),
-    fields: ['Main Thing'],
     email: email
   }, function(err, formSheet) {
     assert(err === null);
@@ -27,7 +26,7 @@ function getExample(email, cb) {
 describe('form-sheet', function() {
   it('transparently caches', function(done) {
     var sheet = FakeSheet(EXAMPLE_SHEET);
-    var opts = {sheet: sheet, fields: [], email: 'u@example.org'};
+    var opts = {sheet: sheet, email: 'u@example.org'};
     getFormSheet(opts, function(err, formSheet) {
       assert(err === null);
       sheet.info.worksheets[0].getRows.callCount.should.eql(1);
