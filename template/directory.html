@@ -34,6 +34,12 @@
     </ul>
     <div class="org-mission">{{ row.val('Organizational Mission') }}</div>
     <ul class="inline-list social-links">
+      {% if row.val('Twitter') %}
+        {% set twitterName = row.val('Twitter')|getUsername %}
+        <li><a title="@{{ twitterName }}" href="http://twitter.com/{{ twitterName }}">
+          <img src="{{ STATIC_ROOT }}/vendor/justvector/twitter_alt.png" alt="Twitter">
+        </a></li>
+      {% endif %}
       {% if row.val('Facebook') %}
         <li><a href="{{ row.val('Facebook')|normalizeURL }}">
           <img src="{{ STATIC_ROOT }}/vendor/justvector/facebook_alt.png" alt="Facebook">
