@@ -1,6 +1,34 @@
 var should = require('should');
 var util = require('../').util;
 
+describe('util.getUsername(', function() {
+  var getUsername = util.getUsername;
+
+  it('should parse @username', function() {
+    getUsername('@username').should.eql('username');
+  });
+
+  it('should parse http://mysite.com/username', function() {
+    getUsername('http://mysite.com/username').should.eql('username');
+  });
+
+  it('should parse username', function() {
+    getUsername('username').should.eql('username');
+  });
+
+  it('should parse mysite.com/username', function() {
+    getUsername('mysite.com/username').should.eql('username');
+  });
+
+  it('should parse mysite.com/username/', function() {
+    getUsername('mysite.com/username/').should.eql('username');
+  });
+
+  it('should parse mysite.com/#!username', function() {
+    getUsername('mysite.com/#!username').should.eql('username');
+  });
+});
+
 describe('util.squishName()', function() {
   var squishName = util.squishName;
 
