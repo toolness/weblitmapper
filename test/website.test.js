@@ -48,7 +48,7 @@ describe("website", function() {
   it('should not provide confidential info when embedded', function(done) {
     email = 'janedoe@amnh.org';
     request(app)
-      .get('/embedded')
+      .get('/embed.js')
       .expect(200, function(err, res) {
         if (err) return done(err);
         res.text.should.not.match(/johndoe@amnh.org/);

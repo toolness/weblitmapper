@@ -88,7 +88,7 @@ the following to any web page at the point where you want the directory
 content to appear:
 
 ```html
-<script src="http://example.org/js/embed.js"></script>
+<script src="http://example.org/embed.js"></script>
 ```
 
 The script element will be replaced by the directory content.
