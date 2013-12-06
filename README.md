@@ -80,6 +80,19 @@ string), the boolean is true; otherwise, it's false.
   `reloadtemplates=1` must be defined in order for the templates to
   be reloaded.
 
+## Embedding API
+
+The public-facing view of the directory can be embedded in any web
+page. Assuming the directory is hosted at example.org, just add
+the following to any web page at the point where you want the directory
+content to appear:
+
+```html
+<script src="http://example.org/js/embed.js"></script>
+```
+
+The script element will be replaced by the directory content.
+
 ## Tests
 
 All tests can be run via `npm test`.

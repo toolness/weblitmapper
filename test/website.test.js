@@ -45,6 +45,17 @@ describe("website", function() {
       });
   });
 
+  it('should not provide confidential info when embedded', function(done) {
+    email = 'janedoe@amnh.org';
+    request(app)
+      .get('/embedded')
+      .expect(200, function(err, res) {
+        if (err) return done(err);
+        res.text.should.not.match(/johndoe@amnh.org/);
+        done();
+      });
+  });
+
   it('should provide confidential info to members', function(done) {
     email = 'janedoe@amnh.org';
     request(app)
