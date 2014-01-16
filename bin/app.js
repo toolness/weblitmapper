@@ -4,8 +4,6 @@ var fs = require('fs');
 var url = require('url');
 var assert = require('assert');
 
-var loadSheet = require('./load-sheet');
-
 const PORT = process.env['PORT'] || 3000;
 const COOKIE_SECRET = process.env['COOKIE_SECRET'] || null;
 const DEBUG = ('DEBUG' in process.env);
@@ -16,10 +14,7 @@ const ORIGIN = process.env['ORIGIN'] || (DEBUG
   ? (SSL_KEY ? 'https' : 'http') + '://localhost:' + PORT
   : null);
 const STATIC_ROOT = process.env['STATIC_ROOT'] || ORIGIN;
-const SPREADSHEET_URL = process.env['SPREADSHEET_URL'];
-const TEMPLATE_URL = process.env['TEMPLATE_URL'];
 
-assert.ok(SPREADSHEET_URL, 'SPREADSHEET_URL env var should be defined.');
 assert.ok(ORIGIN, 'ORIGIN env var should be defined.');
 assert.ok(COOKIE_SECRET, 'COOKIE_SECRET env var should be defined.');
 assert.ok((SSL_KEY && SSL_CERT) || (!SSL_KEY && !SSL_CERT),
@@ -30,16 +25,14 @@ if (SSL_KEY)
 if (ENABLE_STUBBYID)
   assert.ok(DEBUG, 'ENABLE_STUBBYID must be used with DEBUG.');
 
-function startServer(sheet) {
+function startServer() {
   var app = require('../').app.build({
-    sheet: sheet,
     cookieSecret: COOKIE_SECRET,
     debug: DEBUG,
     personaDefineRoutes: ENABLE_STUBBYID &&
                          require('../test/lib/stubbyid-persona'),
     personaJsUrl: ENABLE_STUBBYID && (STATIC_ROOT + '/vendor/stubbyid.js'),
     staticRoot: STATIC_ROOT,
-    templateUrl: TEMPLATE_URL,
     origin: ORIGIN
   });
 
@@ -63,8 +56,4 @@ function startServer(sheet) {
   });
 }
 
-loadSheet(SPREADSHEET_URL, function(err, sheet) {
-  if (err) throw err;
-
-  startServer(sheet);
-});
+startServer();

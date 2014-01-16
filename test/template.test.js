@@ -8,11 +8,6 @@ function objectifyStr(str) {
 }
 
 describe("template middleware", function() {
-  it('instantiates HttpLoader if needed', function() {
-    var app = testUtil.app({templateUrl: 'http://example.org'});
-    app.nunjucksEnv.loaders[0].constructor.name.should.eql('HttpLoader');
-  });
-
   it('auto-escapes template variables', function(done) {
     request({
       testRoutes: {
@@ -54,24 +49,6 @@ describe("template middleware", function() {
         res.send(typeof(res.locals.email) + res.locals.email.length);
       }
     }}).get('/email').expect('string0', done);
-  });
-
-  it('defines the normalizeURL filter', function() {
-    var normalizeURL = testUtil.app().nunjucksEnv.getFilter('normalizeURL');
-    normalizeURL('foo.org/blah').should.eql('http://foo.org/blah');
-    normalizeURL(objectifyStr('o.org')).should.eql('http://o.org');
-  });
-
-  it('defines the domain filter', function() {
-    var domain = testUtil.app().nunjucksEnv.getFilter('domain');
-    domain('foo.org/blah').should.eql('foo.org');
-    domain(objectifyStr('o.org/')).should.eql('o.org');
-  });
-
-  it('defines the squishName filter', function() {
-    var squishName = testUtil.app().nunjucksEnv.getFilter('squishName');
-    squishName('Hey There').should.eql('heythere');
-    squishName(objectifyStr('HI')).should.eql('hi');
   });
 });
 

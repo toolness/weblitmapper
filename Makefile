@@ -5,7 +5,7 @@ test:
 	test/*.test.js
 
 test-cov: lib-cov
-	@HIVEDIR_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
+	@ENABLE_TEST_COVERAGE=1 $(MAKE) test REPORTER=html-cov > coverage.html
 
 lib-cov:
 	@jscoverage lib lib-cov

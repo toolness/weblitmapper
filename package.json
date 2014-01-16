@@ -1,6 +1,6 @@
 {
-  "name": "hive-directory",
-  "description": "A Hive directory.",
+  "name": "my-new-app",
+  "description": "My New App",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -18,8 +18,6 @@
     "client-sessions": "0.4.1",
     "express-persona": "0.0.9",
     "nunjucks": "1.0",
-    "google-spreadsheet": "0.2.5",
-    "request": "2.27.0",
     "underscore": "1.5.1"
   },
   "engines": {

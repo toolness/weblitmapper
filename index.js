@@ -1,3 +1,3 @@
-module.exports = process.env.HIVEDIR_COV
-  ? require('./lib-cov/hive-directory')
-  : require('./lib/hive-directory');
+module.exports = process.env.ENABLE_TEST_COVERAGE
+  ? require('./lib-cov')
+  : require('./lib');

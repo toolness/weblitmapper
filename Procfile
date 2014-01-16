@@ -1,1 +1,1 @@
-web: node bin/hive-directory.js
+web: node bin/app.js

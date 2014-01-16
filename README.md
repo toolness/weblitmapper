@@ -1,6 +1,6 @@
-# Hive Directory [![Build Status](https://secure.travis-ci.org/toolness/hive-directory.png?branch=master)](http://travis-ci.org/toolness/hive-directory)
+# MyNewApp [![Build Status](https://secure.travis-ci.org/toolness/my-new-app.png?branch=master)](http://travis-ci.org/toolness/my-new-app)
 
-This is an experimental directory for Hive organizations.
+TODO: Describe the project here.
 
 ## Prerequisites
 
@@ -13,33 +13,21 @@ disabled.
 ## Quick Start
 
 ```
-git clone git://github.com/toolness/hive-directory.git
-cd hive-directory
+git clone git://github.com/toolness/my-new-app.git
+cd my-new-app
 npm install
 npm test
-export SPREADSHEET_URL=test/sample.json
 export COOKIE_SECRET=cookie
-DEBUG= ENABLE_STUBBYID= node bin/hive-directory.js
+DEBUG= ENABLE_STUBBYID= node bin/app.js
 ```
 
-Then visit http://localhost:3000. Login as anyone at amnh.org to access
-the site as a Hive member.
+Then visit http://localhost:3000.
 
 ## Environment Variables
 
 **Note:** When an environment variable is described as representing a
 boolean value, if the variable exists with *any* value (even the empty
 string), the boolean is true; otherwise, it's false.
-
-* `SPREADSHEET_URL` is the URL of the spreadsheet to use. Options
-  include:
-    * A Google spreadsheet. Simply take the URL of the
-      spreadsheet and add auth information before the hostname. Example:
-      `https://USER@gmail.com:PASS@docs.google.com/spreadsheet/ccc?key=KEY`.
-    * A JSON file. Simply include the path to a JSON file containing row
-      data. See `test/sample.json` for an example. This is for testing
-      purposes only, and the JSON file is never written to (changes made
-      via the website are saved in-memory only). Example: `test/sample.json`.
 
 * `COOKIE_SECRET` is the secret used to encrypt and sign cookies,
   to prevent tampering.
@@ -73,25 +61,6 @@ string), the boolean is true; otherwise, it's false.
 * `STATIC_ROOT` is a URL pointing to the location of static assets. If
   not provided, the app will self-host its own static assets. Note that
   this URL should *not* end with a `/`.
-
-* `TEMPLATE_URL` is a URL pointing to the location of template files.
-  If not provided, the app will load templates from the filesystem. Note
-  that if this environment variable is defined, the querystring argument
-  `reloadtemplates=1` must be defined in order for the templates to
-  be reloaded.
-
-## Embedding API
-
-The public-facing view of the directory can be embedded in any web
-page. Assuming the directory is hosted at example.org, just add
-the following to any web page at the point where you want the directory
-content to appear:
-
-```html
-<script src="http://example.org/embed.js"></script>
-```
-
-The script element will be replaced by the directory content.
 
 ## Tests
 
