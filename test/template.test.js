@@ -3,10 +3,6 @@ var _ = require('underscore');
 var testUtil = require('./lib/util');
 var request = testUtil.request;
 
-function objectifyStr(str) {
-  return {toString: function() { return str; }}
-}
-
 describe("template middleware", function() {
   it('auto-escapes template variables', function(done) {
     request({
