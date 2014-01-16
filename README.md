@@ -17,8 +17,8 @@ git clone git://github.com/toolness/my-new-app.git
 cd my-new-app
 npm install
 npm test
-export COOKIE_SECRET=cookie
-DEBUG= ENABLE_STUBBYID= node bin/app.js
+source .env.example
+node bin/app.js
 ```
 
 Then visit http://localhost:3000.
