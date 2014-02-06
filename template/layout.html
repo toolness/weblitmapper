@@ -5,36 +5,40 @@
   <meta name="email" content="{{ email }}">
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <link rel="stylesheet" href="{{ STATIC_ROOT }}/vendor/normalize.css">
-  <link rel="stylesheet" href="{{ STATIC_ROOT }}/vendor/foundation{{ DOT_MIN }}.css">
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ STATIC_ROOT }}/vendor/makerstrap.min.css">
   <link rel="stylesheet" href="{{ STATIC_ROOT }}/css/style.css">
   {% block head %}{% endblock %}
   <title>{% block title %}Web Literacy Map Bookmarklet{% endblock %}</title>
 </head>
 <body>
-  <nav class="top-bar">
-    <ul class="title-area">
-      <li class="name"> <h1><a href="/">Web Literacy Map Bookmarklet</a></h1> </li>
-    </ul>
-    <section class="top-bar-section">
-      <!-- Right Nav Section -->
-      <ul class="right">
-        <li class="has-form">
-          {% if email %}
-            <button class="button js-logout">Logout {{email}}</button>
-          {% else %}
-            <button class="button js-login">Login</button>
-          {% endif %}
-        </li>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navController">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Web Literacy Map Bookmarklet</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        {% if email %}
+        <li><a class="js-logout btn btn-primary">Logout {{email}}</a></li>
+        {% else %}
+        <li><a class="js-login btn btn-primary">Login</a></li>
+        {% endif %}
       </ul>
-    </section>
+    </div>
   </nav>
 
-  <div class="content">
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Greetings, Web Lit Mapper</h1>
+      <p>This is weird.</p>
+    </div>
+  </div>
 
+  <div class="container">
     {% set flashMessages = fetchAndClearFlashMessages() %}
     {% for message in flashMessages %}
-      <div class="alert-box {{ message.category }}">
+      <div class="alert alert-{{ message.category }}">
         {{ message.content }}
       </div>
     {% endfor %}
