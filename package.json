@@ -19,6 +19,7 @@
     "express-persona": "0.0.9",
     "nunjucks": "1.0",
     "csvrow": "0.1.0",
+    "request": "2.33.0",
     "underscore": "1.5.1"
   },
   "engines": {

@@ -31,6 +31,13 @@ Then visit http://localhost:3000.
 boolean value, if the variable exists with *any* value (even the empty
 string), the boolean is true; otherwise, it's false.
 
+* `LOGINAPI_AUTH` is the *username:password* pair that will be
+  used to authenticate with the Webmaker login server, e.g.
+  `john:1234`.
+
+* `LOGINAPI_URL` is the URL for the Webmaker login server.
+  Defaults to https://login.webmaker.org.
+
 * `COOKIE_SECRET` is the secret used to encrypt and sign cookies,
   to prevent tampering.
 
