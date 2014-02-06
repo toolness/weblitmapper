@@ -1,6 +1,6 @@
 {
-  "name": "my-new-app",
-  "description": "My New App",
+  "name": "weblitmap-bookmarklet",
+  "description": "Submit Web Literacy Map resources via a bookmarklet",
   "version": "0.0.1",
   "private": true,
   "scripts": {

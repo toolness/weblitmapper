@@ -1,6 +1,8 @@
-# MyNewApp [![Build Status](https://secure.travis-ci.org/toolness/my-new-app.png?branch=master)](http://travis-ci.org/toolness/my-new-app)
+# Web Literacy Map Bookmarklet [![Build Status](https://secure.travis-ci.org/toolness/weblitmap-bookmarklet.png?branch=master)](http://travis-ci.org/toolness/weblitmap-bookmarklet)
 
-TODO: Describe the project here.
+This is an attempt to make it easy to submit web resources that
+are on the [Web Literacy Map](https://webmaker.org/standard)
+to the Webmaker community via a bookmarklet.
 
 ## Prerequisites
 
@@ -13,8 +15,8 @@ disabled.
 ## Quick Start
 
 ```
-git clone git://github.com/toolness/my-new-app.git
-cd my-new-app
+git clone git://github.com/toolness/weblitmap-bookmarklet.git
+cd weblitmap-bookmarklet
 npm install
 npm test
 source .env.example
