@@ -38,6 +38,13 @@ string), the boolean is true; otherwise, it's false.
 * `LOGINAPI_URL` is the URL for the Webmaker login server.
   Defaults to https://login.webmaker.org.
 
+* `MAKEAPI_PRIVATE_KEY` is the secret shared key for the Webmaker Make API.
+
+* `MAKEAPI_PUBLIC_KEY` is the public key for the Webmaker Make API.
+
+* `MAKEAPI_URL` is the URL for the Webmaker Make API. Defaults
+  to https://makeapi.webmaker.org.
+
 * `COOKIE_SECRET` is the secret used to encrypt and sign cookies,
   to prevent tampering.
 
