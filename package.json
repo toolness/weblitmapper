@@ -1,5 +1,5 @@
 {
-  "name": "weblitmap-bookmarklet",
+  "name": "weblitmapper",
   "description": "Submit Web Literacy Map resources via a bookmarklet",
   "version": "0.0.1",
   "private": true,

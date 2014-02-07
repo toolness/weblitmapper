@@ -1,4 +1,4 @@
-# Web Literacy Map Bookmarklet [![Build Status](https://secure.travis-ci.org/toolness/weblitmap-bookmarklet.png?branch=master)](http://travis-ci.org/toolness/weblitmap-bookmarklet)
+# Web Literacy Mapper [![Build Status](https://secure.travis-ci.org/toolness/weblitmapper.png?branch=master)](http://travis-ci.org/toolness/weblitmapper)
 
 This is an attempt to make it easy to submit web resources that
 are on the [Web Literacy Map](https://webmaker.org/standard)
@@ -15,8 +15,8 @@ disabled.
 ## Quick Start
 
 ```
-git clone git://github.com/toolness/weblitmap-bookmarklet.git
-cd weblitmap-bookmarklet
+git clone git://github.com/toolness/weblitmapper.git
+cd weblitmapper
 npm install
 npm test
 source .env.example
