@@ -4,6 +4,11 @@
   margin: 0px;
 }
 
+.container-toplevel {
+  margin-top: 80px;
+  margin-bottom: 20px;
+}
+
 .strands {
   padding: 10px 0;
 }

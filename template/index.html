@@ -6,11 +6,15 @@
 {% endblock %}
 
 {% block content %}
-  <form method="get" action="/update">
-    URL: <input type="text" id="url" name="url">
-    <input type="submit">
-  </form>
   <div class="make-gallery"></div>
+  <h2>Submit a URL</h2>
+  <form method="get" action="/update" class="form-inline">
+    <div class="form-group">
+      <label class="sr-only">URL</label>
+      <input type="text" id="url" name="url" placeholder="http://">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
 {% endblock %}
 
 {% block scripts %}

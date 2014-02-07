@@ -28,14 +28,7 @@
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1>Greetings, Web Lit Mapper</h1>
-      <p>This is weird.</p>
-    </div>
-  </div>
-
-  <div class="container">
+  <div class="container container-toplevel">
     {% set flashMessages = fetchAndClearFlashMessages() %}
     {% for message in flashMessages %}
       <div class="alert alert-{{ message.category }}">
@@ -44,7 +37,6 @@
     {% endfor %}
 
     {% block content %}{% endblock %}
-
   </div>
 
   <script src="{{ STATIC_ROOT }}/vendor/jquery{{ DOT_MIN }}.js"></script>
