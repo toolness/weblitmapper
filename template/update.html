@@ -10,15 +10,20 @@
 {%- endmacro %}
 
 {% block content %}
-  <p>URL: {{ entry.url }}</p>
+  <h2>Web Literacy Information for {{ entry.url }}</h2>
   <form method="post">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     <input type="hidden" name="url" value="{{ entry.url }}">
 
-    <p>Title: <input type="text" name="title" value="{{ entry.title }}"></p>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{ entry.title }}">
+    </div>
 
-    <p>Description:</p>
-    <textarea name="description">{{ entry.description }}</textarea>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" class="form-control" name="description">{{ entry.description }}</textarea>
+    </div>
 
     <div class="strands">
     {% for strand in weblitmap.strands %}
@@ -31,6 +36,6 @@
     {% endfor %}
     </div>
 
-    <input type="submit">
+    <button type="submit" class="btn btn-default">Submit</button>
   </form>
 {% endblock %}
