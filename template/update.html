@@ -20,15 +20,17 @@
     <p>Description:</p>
     <textarea name="description">{{ entry.description }}</textarea>
 
+    <div class="strands">
     {% for strand in weblitmap.strands %}
-      <h2>{{ tagCheckbox(strand) }}</h2>
-      {% for competency in strand.competencies %}
-      <h3>{{ tagCheckbox(competency) }}</h3>
-        {% for skill in competency.skills %}
-          <p>{{ tagCheckbox(skill) }}</p>
+      <div class="strand">
+        <div class="strand-box">{{ tagCheckbox(strand) }}</div>
+        {% for competency in strand.competencies %}
+        <div class="competency-box" style="background-color: {{ competency.colour }}">{{ tagCheckbox(competency) }}</div>
         {% endfor %}
-      {% endfor %}
+      </div>
     {% endfor %}
+    </div>
+
     <input type="submit">
   </form>
 {% endblock %}

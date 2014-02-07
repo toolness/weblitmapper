@@ -3,3 +3,38 @@
   font-size: smaller;
   margin: 0px;
 }
+
+.strands {
+  padding: 10px 0;
+}
+
+.strand {
+  display: inline-block;
+  width: 33%;
+  vertical-align: top;
+}
+
+.strand-box, .competency-box {
+  padding: 4px;
+}
+
+.strand input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  border: 1px solid black;
+  background: white;
+}
+
+.strand label {
+  display: block;
+  margin: 0;
+}
+
+.strand-box {
+  color: white;
+  background-color: black;
+}
+
+.competency-box {
+  color: white;
+}
