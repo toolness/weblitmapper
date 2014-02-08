@@ -30,7 +30,7 @@
       <div class="strand col-md-4">
         <div class="strand-box">{{ tagCheckbox(strand) }}</div>
         {% for competency in strand.competencies %}
-        <div class="competency-box" style="background-color: {{ competency.colour }}">{{ tagCheckbox(competency) }}</div>
+        <div class="competency-box" style="background-color: {{ competency.colour }}" title="{{ competency.description }}">{{ tagCheckbox(competency) }}</div>
         {% endfor %}
       </div>
     {% endfor %}
