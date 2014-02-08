@@ -5,8 +5,14 @@
 }
 
 body {
-  padding-top: 70px;
+  padding-top: 120px;
   padding-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
 }
 
 .strands {
