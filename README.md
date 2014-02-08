@@ -43,7 +43,8 @@ string), the boolean is true; otherwise, it's false.
 * `MAKEAPI_PUBLIC_KEY` is the public key for the Webmaker Make API.
 
 * `MAKEAPI_URL` is the URL for the Webmaker Make API. Defaults
-  to https://makeapi.webmaker.org.
+  to https://makeapi.webmaker.org. Use `:memory:` to use an in-memory
+  store for debugging/offline development.
 
 * `COOKIE_SECRET` is the secret used to encrypt and sign cookies,
   to prevent tampering.
