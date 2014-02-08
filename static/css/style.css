@@ -13,12 +13,6 @@
   padding: 10px 0;
 }
 
-.strand {
-  display: inline-block;
-  width: 33%;
-  vertical-align: top;
-}
-
 .strand-box, .competency-box {
   padding: 4px;
 }

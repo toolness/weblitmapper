@@ -25,9 +25,9 @@
       <textarea id="description" class="form-control" name="description">{{ entry.description }}</textarea>
     </div>
 
-    <div class="strands">
+    <div class="strands row">
     {% for strand in weblitmap.strands %}
-      <div class="strand">
+      <div class="strand col-md-4">
         <div class="strand-box">{{ tagCheckbox(strand) }}</div>
         {% for competency in strand.competencies %}
         <div class="competency-box" style="background-color: {{ competency.colour }}">{{ tagCheckbox(competency) }}</div>
