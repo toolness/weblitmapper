@@ -20,7 +20,12 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
         {% if email %}
-        <li><a class="js-logout btn btn-primary">Logout {{email}}</a></li>
+        <li><a class="js-logout btn btn-primary">Logout
+          {% if username %}
+            {{ username }}
+          {% else %}
+            {{email}}
+          {% endif %}</a></li>
         {% else %}
         <li><a class="js-login btn btn-primary">Login</a></li>
         {% endif %}
