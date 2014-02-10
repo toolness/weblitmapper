@@ -35,6 +35,7 @@
   var galleryElement;
   var resizeDelay = 25;
   var default_profileBaseURL = "https://webmaker.org/u/";
+  var default_tagBaseURL = "https://webmaker.org/t/";
   var DEFAULT_LIMIT = 10;
   var MakeAPI = window.Make;
   var fallbackAvatar = "https://i1.wp.com/stuff.webmaker.org/avatars/webmaker-avatar-44x44.png";
@@ -178,12 +179,13 @@
 
     //Generate tags
     var makeTags = node.querySelector(".make-tags");
+    var tagURL = clientConfig.tagBaseURL || default_tagBaseURL;
     if(hidden.indexOf("tags") < 0) {
       for(var i = 0; i < make.tags.length; i++){
         var tag = document.createElement("a");
         tag.classList.add("make-tag");
         tag.innerHTML = make.tags[i];
-        tag.setAttribute("href","https://webmaker.org/t/" + make.tags[i]);
+        tag.setAttribute("href",tagURL + make.tags[i]);
         makeTags.appendChild(tag);
         makeTags.innerHTML = makeTags.innerHTML + " ";
       }
