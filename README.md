@@ -36,7 +36,9 @@ string), the boolean is true; otherwise, it's false.
   `john:1234`.
 
 * `LOGINAPI_URL` is the URL for the Webmaker login server.
-  Defaults to https://login.webmaker.org.
+  Defaults to https://login.webmaker.org. Use `:fake:` to always return
+  the username part of the email address, which is useful for
+  debugging/offline development.
 
 * `MAKEAPI_PRIVATE_KEY` is the secret shared key for the Webmaker Make API.
 
