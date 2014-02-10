@@ -98,9 +98,6 @@ defined.
 Build/install [jscoverage][], run `make test-cov`, then open
 `coverage.html` in a browser.
 
-Coverage should always be at 100%. Pull requests that break this will
-be rejected.
-
   [PhantomJS]: http://phantomjs.org/
   [stubbyid]: http://toolness.github.io/stubbyid/
   [mocha(1)]: http://visionmedia.github.io/mocha/#usage
