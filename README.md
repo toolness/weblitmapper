@@ -48,6 +48,10 @@ string), the boolean is true; otherwise, it's false.
   to https://makeapi.webmaker.org. Use `:memory:` to use an in-memory
   store for debugging/offline development.
 
+* `WEBMAKER_URL` is the URL for the user-facing Webmaker site. It will
+  be used for display purposes only, as a means to direct users to
+  create an account there if necessary. Defaults to https://webmaker.org.
+
 * `COOKIE_SECRET` is the secret used to encrypt and sign cookies,
   to prevent tampering.
 
