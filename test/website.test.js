@@ -20,7 +20,7 @@ describe("website", function() {
     });
 
     template.express(app, {});
-    website.express(app);
+    website.express(app, {origin: 'http://example.org'});
     app.use(function(err, req, res, next) {
       if (typeof(err) == 'number')
         return res.send(err);
