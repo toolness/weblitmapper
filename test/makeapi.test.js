@@ -72,4 +72,15 @@ describe('makeapi.MakeForm', function() {
       done();
     });
   });
+
+  it('validates properly', function() {
+    function validate(options) {
+      var form = new makeapi.MakeForm(_.extend({}, BASIC_FORM, options));
+      return form.validate();
+    }
+
+    validate({}).should.have.length(0);
+    validate({url: 'lol'}).should.eql(['Invalid URL.']);
+    validate({title: ''}).should.eql(['Title cannot be empty.']);
+  });
 });
