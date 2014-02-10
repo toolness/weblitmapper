@@ -30,7 +30,19 @@
       <div class="strand col-md-4">
         <div class="strand-box">{{ tagCheckbox(strand) }}</div>
         {% for competency in strand.competencies %}
-        <div class="competency-box" style="background-color: {{ competency.colour }}" title="{{ competency.description }}">{{ tagCheckbox(competency) }}</div>
+        <div class="competency-box" style="background-color: {{ competency.colour }}">{{ tagCheckbox(competency) }}
+          <span class="toggle-competency-details"
+            data-slide-toggle="competency_details_{{ competency.tag }}">?</span>
+          <div class="competency-details" id="competency_details_{{ competency.tag }}">
+            <p><em>{{ competency.description }}</em></p>
+            <p>Skills may include:</p>
+            <ul>
+              {% for skill in competency.skills %}
+                <li>{{ skill.name }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
         {% endfor %}
       </div>
     {% endfor %}
@@ -38,4 +50,8 @@
 
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ STATIC_ROOT }}/js/slide-toggle.js"></script>
 {% endblock %}
