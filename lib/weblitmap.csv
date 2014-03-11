@@ -1,82 +1,83 @@
 Strand,Competency,Skill,Tag
-EXPLORING,,,#exploring
-,Navigation,,#navigation
-,, Accessing the Web using the common features of Web browsers ,#accessingweb
-,,Using hyperlinks to access a range of resources on the Web,#usinghyperlinks
-,,"Reading, evaluating, and manipulating URLs ",#usingurls
-,, Recognizing the visual cues in everyday Web services ,#visualcues
-,,Using browser add-ons and extensions to provide additional functionality,#extensions
-,Web Mechanics,,#webmechanics
-,,"Using and understanding the differences between URLs, IP addresses and search term",#ipaddresses
-,, Managing information from various sources on the Web ,#manginginfo
-,,Demonstrating the difference between the results of varying search strategies ,#searchstrategies
-,Search,,#search
-,," Using keywords, search operators, and keyboard shortcuts to make Web searches more efficient. ",#usingoperators
-,, Finding real-time or time-sensitive information using a range of search techniques ,#searchtechniques
-,, Locating or finding desired information within search results ,#locatinginfo
-,, Synthesizing information found from online resources through multiple searches ,#synthesizing
-,Credibility,,#credibility
-,, Making judgments based on technical and design characteristics to assess the credibility of information ,#makingjudgments
-,, Researching authorship and ownership of websites and their content ,#researchingauthorship
-,, Comparing information from a number of sources to judge the trustworthiness of content ,#comparinginfo
-,, Discriminating between 'original' and derivative Web content ,#derivativecontent
-,Security,,#security
-,, Detecting online scams and 'phishing' by employing recognized tools and techniques ,#detectingscams
-,, Encrypting data and communications using software and add-ons ,#encryptingdata
-,," Changing the default behavior of websites, add-ons and extensions to make Web browsing more secure ",#changingbehavior
-BUILDING,,,#building
-,Composing for the Web,,#composing
-,, Inserting hyperlinks into a Web page ,#insertinghyperlinks
-,, Embedding multimedia content into a Web page ,#embeddingcontent
-,, Creating Web resources in ways appropriate to the medium/genre ,#creatingresources
-,, Identifying and using HTML tags ,#usingHTML
-,, Structuring a Web page ,#structuringpages
-,Remixing,,#remixing
-,, Identifying and using openly-licensed work ,#openlicensing
-,, Combining multimedia resources ,#combiningmultimedia
-,, Creating something new on the Web using existing resources ,#existingresources
-,Design & accessibility,,#design
-,, Identifying the different parts of a Web page using industry-recognized terms ,#identifyingparts
-,, Improving the accessibility of a Web page by modifying its color scheme and markup ,#improvingaccessibility
-,, Iterating on a design after feedback from a target audience ,#iteratingdesign
-,, Reorganizing the structure of a Web page to improve its hierarchy conceptual flow ,#conceptualflow
-,," Demonstrating the difference between inline, embedded and external CSS ",#CSStypes
-,, Using CSS tags to change the style and layout of a Web page ,#pagelayout
-,Coding/scripting,,#coding
-,, Explaining the differences between client-side and server-side scripting ,#clientserver
-,, Composing working loops and arrays ,#loopsarrays
-,, Reading and explaining the structure of code ,#codestructure
-,, Using a script framework ,#scriptframework
-,, Adding code comments for clarification and attribution ,#codecomments
-,Infrastructure,,#infrastructure
-,, Understanding and labeling the Web stack ,#webstack
-,, Explaining the differences between the Web and the Internet ,#webinternet
-,, Exporting and backing up your data from Web services ,#backingup
-,, Moving the place(s) where your data is hosted on the Web ,#movingdata
-,, Securing your data against malware and computer criminals ,#securingdata
-CONNECTING,,,#connecting
-,Sharing & Collaborating,,#sharing
-,, Sharing a resource using an appropriate tool and format for the audience ,#sharingresources
-,, Tracking changes made to co-created Web resources ,#trackingchanges
-,, Choosing a Web tool to use for a particular contribution/collaboration ,#collaborationtools
-,, Co-creating Web resources ,#cocreatngresources
-,, Configuring notifications to keep up-to-date with community spaces and interactions ,#configuringnotifications
-,,"Using synchronous and asynchronous tools to communicate with Web communities, networks and groups ",#commstools
-,Community participation,,#community
-,, Encouraging participation in Web communities ,#encouragingparticipation
-,, Using constructive criticism in a group or community setting ,#constructivecriticism
-,, Configuring settings within tools used by online communities ,#configuringsettings
-,, Participating in both synchronous and asynchronous discussions ,#participatingdiscussions
-,, Expressing opinions appropriately in Web discussions ,#expressingopinions
-,, Defining different terminology used within online communities ,#communityterminology
-,Privacy,,#privacy
-,, Identifying rights retained and removed through user agreements ,#useragreements
-,, Taking steps to secure non-encrypted connections ,#encryptedconnections
-,, Explaining ways in which computer criminals are able to gain access to user information ,#userinfo
-,, Managing the digital footprint of an online persona ,#digitalfootprints
-,, Identifying and taking steps to keep important elements of identity private ,#identityprivacy
-,Open practices,,#openpractices
-,, Distinguishing between open and closed licensing ,#openclosedlicensing
-,, Making Web resources available under an open license ,#openresources
-,," Using and sharing files in open, Web-friendly formats when appropriate ",#sharingopen
-,, Contributing to an Open Source project ,#openproject
+EXPLORING,,,#Exploring
+,Navigation,,#Navigation
+,,Accessing the Web using the common features of Web browsers,
+,,Using hyperlinks to access a range of resources on the Web,
+,,"Reading, evaluating, and manipulating URLs ",
+,,Recognizing the visual cues in everyday Web services,
+,,Using browser add-ons and extensions to provide additional functionality,
+,Web Mechanics,,#WebMechanics
+,,"Using and understanding the differences between URLs, IP addresses and search term",
+,,Managing information from various sources on the Web,
+,,Demonstrating the difference between the results of varying search strategies,
+,Search,,#Search
+,," Using keywords, search operators, and keyboard shortcuts to make Web searches more efficient. ",
+,,Finding real-time or time-sensitive information using a range of search techniques,
+,,Locating or finding desired information within search results,
+,,Synthesizing information found from online resources through multiple searches,
+,Credibility,,#Credibility
+,,Making judgments based on technical and design characteristics to assess the credibility of information,
+,,Researching authorship and ownership of websites and their content,
+,,Comparing information from a number of sources to judge the trustworthiness of content,
+,,Discriminating between 'original' and derivative Web content,
+,Security,,#Security
+,,Detecting online scams and 'phishing' by employing recognized tools and techniques,
+,,Encrypting data and communications using software and add-ons,
+,," Changing the default behavior of websites, add-ons and extensions to make Web browsing more secure ",
+BUILDING,,,#Building
+,Composing for the Web,,#Composing
+,,Inserting hyperlinks into a Web page,
+,,Embedding multimedia content into a Web page,
+,,Creating Web resources in ways appropriate to the medium/genre,
+,,Identifying and using HTML tags,
+,,Structuring a Web page,
+,Remixing,,#Remixing
+,,Identifying and using openly-licensed work,
+,,Combining multimedia resources,
+,,Creating something new on the Web using existing resources,
+,Design & accessibility,,#DesignAccessibility
+,,Identifying the different parts of a Web page using industry-recognized terms,
+,,Improving the accessibility of a Web page by modifying its color scheme and markup,
+,,Iterating on a design after feedback from a target audience,
+,,Reorganizing the structure of a Web page to improve its hierarchy conceptual flow,
+,," Demonstrating the difference between inline, embedded and external CSS ",
+,,Using CSS tags to change the style and layout of a Web page,
+,Coding/scripting,,#Coding
+,,Explaining the differences between client-side and server-side scripting,
+,,Composing working loops and arrays,
+,,Reading and explaining the structure of code,
+,,Using a script framework,
+,,Adding code comments for clarification and attribution,
+,Infrastructure,,#Infrastructure
+,,Understanding and labeling the Web stack,
+,,Explaining the differences between the Web and the Internet,
+,,Exporting and backing up your data from Web services,
+,,Moving the place(s) where your data is hosted on the Web,
+,,Securing your data against malware and computer criminals,
+CONNECTING,,,#Connecting
+,Sharing,,#Sharing
+,,Sharing a resource using an appropriate tool and format for the audience,
+,,Tracking changes made to co-created Web resources,
+,,"Using synchronous and asynchronous tools to communicate with Web communities, networks and groups ",
+,Collaborating,,#Collaborating
+,,Choosing a Web tool to use for a particular contribution/collaboration,
+,,Co-creating Web resources,
+,,Configuring notifications to keep up-to-date with community spaces and interactions,
+,Community participation,,#Community
+,,Encouraging participation in Web communities,
+,,Using constructive criticism in a group or community setting,
+,,Configuring settings within tools used by online communities,
+,,Participating in both synchronous and asynchronous discussions,
+,,Expressing opinions appropriately in Web discussions,
+,,Defining different terminology used within online communities,
+,Privacy,,#Privacy
+,,Identifying rights retained and removed through user agreements,
+,,Taking steps to secure non-encrypted connections,
+,,Explaining ways in which computer criminals are able to gain access to user information,
+,,Managing the digital footprint of an online persona,
+,,Identifying and taking steps to keep important elements of identity private,
+,Open practices,,#OpenPractices
+,,Distinguishing between open and closed licensing,
+,,Making Web resources available under an open license,
+,," Using and sharing files in open, Web-friendly formats when appropriate ",
+,,Contributing to an Open Source project,

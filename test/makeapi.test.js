@@ -39,25 +39,25 @@ describe('makeapi.makeForURL', function() {
 describe('makeapi.MakeForm', function() {
   it('works with tags', function() {
     var form = new makeapi.MakeForm(_.extend({
-      'weblit_exploring': 'on'
+      'weblit_Exploring': 'on'
     }, BASIC_FORM));
 
-    form.hasTag('exploring').should.be.true;
-    form.hasTag('building').should.be.false;
+    form.hasTag('Exploring').should.be.true;
+    form.hasTag('Building').should.be.false;
 
     var make = _.extend({
-      tags: ['weblit-building', 'foo']
+      tags: ['weblit-Building', 'foo']
     }, BASIC_FORM);
     form.loadFrom(make);
 
-    form.hasTag('exploring').should.be.false;
-    form.hasTag('building').should.be.true;
+    form.hasTag('Exploring').should.be.false;
+    form.hasTag('Building').should.be.true;
 
-    form.setTag('exploring', true);
-    form.setTag('building', false);
+    form.setTag('Exploring', true);
+    form.setTag('Building', false);
     form.updateTags(make);
 
-    make.tags.should.eql(['weblit-exploring', 'foo']);
+    make.tags.should.eql(['weblit-Exploring', 'foo']);
   });
 
   it('creates makes when needed', function(done) {

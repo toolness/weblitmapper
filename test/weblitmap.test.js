@@ -9,7 +9,7 @@ describe('weblitmap.normalizeTags()', function() {
   });
 
   it('should include parent skills, competencies', function() {
-    weblitmap.normalizeTags(['ipaddresses'])
-      .should.eql(["ipaddresses", "webmechanics", "exploring"]);
+    weblitmap.normalizeTags(['WebMechanics'])
+      .should.eql(["WebMechanics", "Exploring"]);
   });
 });
