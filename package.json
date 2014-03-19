@@ -21,6 +21,8 @@
     "csvrow": "0.1.0",
     "request": "2.33.0",
     "makeapi-client": "mozilla/makeapi-client",
+    "through": "2.3.4",
+    "JSONStream": "0.8.0",
     "underscore": "1.5.1"
   },
   "engines": {
