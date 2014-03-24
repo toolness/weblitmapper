@@ -3,7 +3,6 @@
 {% block head %}
 <meta name="makeapi-url" content="{{ MAKEAPI_URL }}">
 <meta name="webmaker-url" content="{{ WEBMAKER_URL }}">
-<link rel="stylesheet" href="{{ STATIC_ROOT }}/vendor/make-gallery/makeGallery.css">
 {% endblock %}
 
 {% block content %}
@@ -25,7 +24,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ STATIC_ROOT }}/vendor/make-gallery/make-api.js"></script>
-<script src="{{ STATIC_ROOT }}/vendor/make-gallery/makeGallery.js"></script>
+<script src="{{ STATIC_ROOT }}/js/bundle.js"></script>
 <script src="{{ STATIC_ROOT }}/js/index.js"></script>
 {% endblock %}

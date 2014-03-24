@@ -4,6 +4,8 @@ var fs = require('fs');
 var url = require('url');
 var assert = require('assert');
 
+var writeBundle = require('./write-bundle');
+
 const PORT = process.env['PORT'] || 3000;
 const COOKIE_SECRET = process.env['COOKIE_SECRET'] || null;
 const DEBUG = ('DEBUG' in process.env);
@@ -33,7 +35,8 @@ function startServer() {
                          require('../test/lib/stubbyid-persona'),
     personaJsUrl: ENABLE_STUBBYID && (STATIC_ROOT + '/vendor/stubbyid.js'),
     staticRoot: STATIC_ROOT,
-    origin: ORIGIN
+    origin: ORIGIN,
+    writeBundle: DEBUG && writeBundle
   });
 
   var server = app;
@@ -43,6 +46,8 @@ function startServer() {
       key: fs.readFileSync(SSL_KEY),
       cert: fs.readFileSync(SSL_CERT)
     }, app);
+
+  writeBundle(fs.createWriteStream(__dirname + '/../static/js/bundle.js'));
 
   server.listen(PORT, function() {
     if (ENABLE_STUBBYID)
