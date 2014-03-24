@@ -46,7 +46,7 @@ describe('makeapi.MakeForm', function() {
     form.hasTag('Building').should.be.false;
 
     var make = _.extend({
-      tags: ['weblit-Building', 'foo']
+      tags: ['weblit-building', 'foo']
     }, BASIC_FORM);
     form.loadFrom(make);
 
