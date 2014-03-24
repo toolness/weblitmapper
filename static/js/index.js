@@ -25,7 +25,10 @@ function InfiniteScrollStream() {
 util.inherits(InfiniteScrollStream, Writable);
 
 InfiniteScrollStream.prototype._write = function(info, encoding, cb) {
-  this._mostRecentItem = $('<h2></h2>').text(info.title)
+  var html = env.render('./template/browser/make-item.html', {
+    make: info
+  });
+  this._mostRecentItem = $('<div></div>').html(html)
     .appendTo(".make-gallery");
   this._onVisibleCallback = cb;
   this._onViewChanged();
@@ -39,6 +42,8 @@ InfiniteScrollStream.prototype._onViewChanged = function() {
     cb();
   }
 };
+
+var env = new nunjucks.Environment(new nunjucks.WebLoader());
 
 var options = {
   profileBaseURL: $('meta[name="webmaker-url"]').attr('content') + '/u/',
