@@ -45,17 +45,11 @@ InfiniteScrollStream.prototype._onViewChanged = function() {
 
 var env = new nunjucks.Environment(new nunjucks.WebLoader());
 
-var options = {
-  profileBaseURL: $('meta[name="webmaker-url"]').attr('content') + '/u/',
-  tagBaseURL: $('meta[name="webmaker-url"]').attr('content') + '/t/',
-  apiURL: $('meta[name="makeapi-url"]').attr('content')
-};
-
 var makeapi = new Make({
-  apiURL: options.apiURL
+  apiURL: CONFIG.MAKEAPI_URL
 });
 var makeStream = new MakeStream(makeapi, {
-  tagPrefix: 'weblit-',
+  tagPrefix: CONFIG.WEBLIT_TAG_PREFIX,
   sortByField: 'createdAt'
 });
 var output = new InfiniteScrollStream();
