@@ -7,6 +7,7 @@
     "test": "node node_modules/mocha/bin/mocha test/*.test.js --check-leaks -R spec"
   },
   "devDependencies": {
+    "csvrow": "0.1.0",
     "mocha": "1.12.0",
     "should": "1.2.2",
     "sinon": "1.7.3",
@@ -18,7 +19,6 @@
     "client-sessions": "0.4.1",
     "express-persona": "0.0.9",
     "nunjucks": "1.0",
-    "csvrow": "0.1.0",
     "request": "2.33.0",
     "makeapi-client": "mozilla/makeapi-client",
     "through": "2.3.4",
