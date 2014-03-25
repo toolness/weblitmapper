@@ -7,39 +7,39 @@ var weblitmap = require('./lib/weblitmap');
 var prettyDate = require('./lib/pretty-date');
 var MakeStream = require('./lib/make-stream');
 
-function isNotTooFarOffscreen(elem) {
-  return $(elem).offset().top - window.pageYOffset < 
-         window.innerHeight;
-}
-
-function Make_hasWeblitTag(tag) {
-  return !!this.weblitTags[CONFIG.WEBLIT_TAG_PREFIX + tag];
-}
-
-function normalizeMake(make) {
+function NormalizedMake(make) {
   var parsedURL = url.parse(make.url);
 
-  make.avatarURL = 'http://www.gravatar.com/avatar/' + make.emailHash +
+  _.extend(this, make);
+  this.avatarURL = 'http://www.gravatar.com/avatar/' + this.emailHash +
                    '?' + querystring.stringify({
                      d: 'https://stuff.webmaker.org/avatars/' +
                         'webmaker-avatar-44x44.png'
                    });
-  make.profileURL = CONFIG.WEBMAKER_URL + '/u/' + make.username;
-  make.updateURL = '/update?' + querystring.stringify({
-    url: make.url
+  this.profileURL = CONFIG.WEBMAKER_URL + '/u/' + this.username;
+  this.updateURL = '/update?' + querystring.stringify({
+    url: this.url
   });
-  make.createdAtPrettyDate = prettyDate(new Date(make.createdAt));
-  make.urlSimplified = parsedURL.hostname +
+  this.createdAtPrettyDate = prettyDate(new Date(this.createdAt));
+  this.urlSimplified = parsedURL.hostname +
                        (parsedURL.pathname == '/' ? '' : parsedURL.pathname);
-  make.weblitTags = {};
+  this.weblitTags = {};
   weblitmap
-    .normalizeTags(make.tags, CONFIG.WEBLIT_TAG_PREFIX)
+    .normalizeTags(this.tags, CONFIG.WEBLIT_TAG_PREFIX)
     .forEach(function(tag) {
-      make.weblitTags[tag] = true;
-    });
-  make.hasWeblitTag = Make_hasWeblitTag;
+      this.weblitTags[tag] = true;
+    }, this);
+}
 
-  return make;
+NormalizedMake.prototype = {
+  hasWeblitTag: function(tag) {
+    return !!this.weblitTags[CONFIG.WEBLIT_TAG_PREFIX + tag];
+  }
+};
+
+function isNotTooFarOffscreen(elem) {
+  return $(elem).offset().top - window.pageYOffset < 
+         window.innerHeight;
 }
 
 function InfiniteScrollStream(el) {
@@ -55,7 +55,7 @@ util.inherits(InfiniteScrollStream, Writable);
 
 InfiniteScrollStream.prototype._write = function(make, encoding, cb) {
   var html = env.render('./template/browser/make-item.html', {
-    make: normalizeMake(make),
+    make: new NormalizedMake(make),
     weblitmap: weblitmap
   });
   var item = $('<div></div>').html(html).find('.make-item')[0];
