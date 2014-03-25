@@ -1,5 +1,8 @@
-<h3><img src="{{ make.avatarURL }}"> {{ make.title }}</h3>
-<p><a href="{{ make.url }}">{{ make.urlSimplified }}</a>
-<p>Submitted by <a href="{{ make.profileURL }}">{{ make.username }}</a></p>
-<p>{{ make.description }}</p>
-<a href="{{ make.updateURL }}" class="btn btn-default btn-xs">Edit</a>
+<div class="make-item col-sm-4">
+  <h3><img width="44" height="44" src="{{ make.avatarURL }}&amp;s=44">
+    {{ make.title }}</h3>
+  <p><a href="{{ make.url }}">{{ make.urlSimplified }}</a>
+  <p>Submitted by <a href="{{ make.profileURL }}">{{ make.username }}</a></p>
+  <p>{{ make.description }}</p>
+  <a href="{{ make.updateURL }}" class="btn btn-default btn-xs">Edit</a>
+</div>

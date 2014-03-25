@@ -7,6 +7,7 @@ var MakeStream = require('./lib/make-stream');
 
 // http://stackoverflow.com/a/13885228
 function isFullyVisible (elem) {
+  elem = $(elem);
   var off = elem.offset();
   var et = off.top;
   var el = off.left;
@@ -24,7 +25,6 @@ function normalizeMake(make) {
 
   make.avatarURL = 'http://www.gravatar.com/avatar/' + make.emailHash +
                    '?' + querystring.stringify({
-                     s: 44,
                      d: 'https://stuff.webmaker.org/avatars/' +
                         'webmaker-avatar-44x44.png'
                    });
@@ -38,10 +38,15 @@ function normalizeMake(make) {
   return make;
 }
 
-function InfiniteScrollStream() {
+function InfiniteScrollStream(el) {
   Writable.call(this, {objectMode: true, highWaterMark: 10});
   this._mostRecentItem = this._onVisibleCallback = null;
   this.onViewChanged = this._onViewChanged.bind(this);
+  this.el = $(el)[0];
+  this.msnry = new Masonry(this.el, {
+    transitionDuration: 0
+  });
+  this.msnry.on('layoutComplete', this.onViewChanged);
 }
 
 util.inherits(InfiniteScrollStream, Writable);
@@ -50,10 +55,12 @@ InfiniteScrollStream.prototype._write = function(make, encoding, cb) {
   var html = env.render('./template/browser/make-item.html', {
     make: normalizeMake(make)
   });
-  this._mostRecentItem = $('<div></div>').html(html)
-    .appendTo(".make-gallery");
+  var item = $('<div></div>').html(html).find('.make-item')[0];
+  this._mostRecentItem = item;
   this._onVisibleCallback = cb;
-  this._onViewChanged();
+  this.el.appendChild(item);
+  this.msnry.appended(item);
+  this.msnry.layout();
 };
 
 InfiniteScrollStream.prototype._onViewChanged = function() {
@@ -76,7 +83,7 @@ var makeStream = new MakeStream(makeapi, {
   tagPrefix: CONFIG.WEBLIT_TAG_PREFIX,
   sortByField: 'createdAt'
 });
-var output = new InfiniteScrollStream();
+var output = new InfiniteScrollStream($(".make-gallery"));
 
 $(window).load(function() {
   makeStream.pipe(output);
