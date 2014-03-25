@@ -1,8 +1,15 @@
 <div class="make-item col-sm-4">
-  <h3><img width="44" height="44" src="{{ make.avatarURL }}&amp;s=44">
-    {{ make.title }}</h3>
+  <h3>{{ make.title }}</h3>
   <p><a href="{{ make.url }}">{{ make.urlSimplified }}</a>
-  <p>Submitted by <a href="{{ make.profileURL }}">{{ make.username }}</a></p>
+  <div class="media">
+    <a class="pull-left" href="{{ make.profileURL }}">
+      <img width="44" height="44" src="{{ make.avatarURL }}&amp;s=44" class="img-circle">
+    </a>
+    <div class="media-body">
+      <p>Submitted by <a href="{{ make.profileURL }}">{{ make.username }}</a></p>
+    </div>
+  </div>
+  <br>
   <p>{{ make.description }}</p>
   <a href="{{ make.updateURL }}" class="btn btn-default btn-xs">Edit</a>
 </div>
