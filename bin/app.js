@@ -4,8 +4,6 @@ var fs = require('fs');
 var url = require('url');
 var assert = require('assert');
 
-var writeBundle = require('./write-bundle');
-
 const PORT = process.env['PORT'] || 3000;
 const COOKIE_SECRET = process.env['COOKIE_SECRET'] || null;
 const DEBUG = ('DEBUG' in process.env);
@@ -27,8 +25,11 @@ if (SSL_KEY)
 if (ENABLE_STUBBYID)
   assert.ok(DEBUG, 'ENABLE_STUBBYID must be used with DEBUG.');
 
+process.env['ORIGIN'] = ORIGIN;
+
 function startServer() {
-  var app = require('../').app.build({
+  var lib = require('../');
+  var app = lib.app.build({
     cookieSecret: COOKIE_SECRET,
     debug: DEBUG,
     personaDefineRoutes: ENABLE_STUBBYID &&
@@ -36,10 +37,11 @@ function startServer() {
     personaJsUrl: ENABLE_STUBBYID && (STATIC_ROOT + '/vendor/stubbyid.js'),
     staticRoot: STATIC_ROOT,
     origin: ORIGIN,
-    writeBundle: DEBUG && writeBundle
+    writeBundle: DEBUG && lib.writeBundle
   });
 
   var server = app;
+  var bundlePath = lib.paths.fromRoot('static/js/bundle.js');
 
   if (SSL_KEY)
     server = require('https').createServer({
@@ -48,7 +50,7 @@ function startServer() {
     }, app);
 
   if (!DEBUG)
-    writeBundle(fs.createWriteStream(__dirname + '/../static/js/bundle.js'));
+    lib.writeBundle(fs.createWriteStream(bundlePath));
 
   server.listen(PORT, function() {
     if (ENABLE_STUBBYID)
