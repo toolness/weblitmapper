@@ -3,6 +3,7 @@ var Writable = require('stream').Writable;
 var _ = require('underscore');
 var url = require('url');
 var querystring = require('querystring');
+var prettyDate = require('./lib/pretty-date');
 var MakeStream = require('./lib/make-stream');
 
 function isNotTooFarOffscreen(elem) {
@@ -22,6 +23,7 @@ function normalizeMake(make) {
   make.updateURL = '/update?' + querystring.stringify({
     url: make.url
   });
+  make.createdAtPrettyDate = prettyDate(new Date(make.createdAt));
   make.urlSimplified = parsedURL.hostname +
                        (parsedURL.pathname == '/' ? '' : parsedURL.pathname);
 
