@@ -6,6 +6,7 @@ var browserify = require('browserify');
 var nunjucks = require('nunjucks');
 
 var makeapi = require('../lib/makeapi');
+var website = require('../lib/website');
 
 var ROOT_DIR = path.normalize(__dirname + '/..');
 
@@ -49,6 +50,8 @@ function writeBundle(output, options) {
   var streams = [
     new JsonLiteralStream('CONFIG', {
       MAKEAPI_URL: makeapi.url,
+      WEBMAKER_URL: website.WEBMAKER_URL,
+      WEBMAKER_DOMAIN: website.WEBMAKER_DOMAIN,
       WEBLIT_TAG_PREFIX: makeapi.WEBLIT_TAG_PREFIX
     }),
     './node_modules/makeapi-client/src/make-api.js',
@@ -60,6 +63,9 @@ function writeBundle(output, options) {
       baseDir: ROOT_DIR
     }).require('util')
       .require('stream')
+      .require('underscore')
+      .require('url')
+      .require('querystring')
       .require('./lib/make-stream')
       .bundle()
   ];
