@@ -47,7 +47,8 @@ function startServer() {
       cert: fs.readFileSync(SSL_CERT)
     }, app);
 
-  writeBundle(fs.createWriteStream(__dirname + '/../static/js/bundle.js'));
+  if (!DEBUG)
+    writeBundle(fs.createWriteStream(__dirname + '/../static/js/bundle.js'));
 
   server.listen(PORT, function() {
     if (ENABLE_STUBBYID)
