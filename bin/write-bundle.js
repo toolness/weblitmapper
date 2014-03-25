@@ -35,12 +35,17 @@ TemplateStream.prototype._read = function() {
   if (!this._templates.length) return this.push(null);
   var filename = this._templates.shift();
   var absPath = path.resolve(ROOT_DIR, filename);
-  this.push(new Buffer(nunjucks.precompile(absPath, {
-    name: filename
-  }), 'utf8'));
+  try {
+    this.push(new Buffer(nunjucks.precompile(absPath, {
+      name: filename
+    }), 'utf8'));
+  } catch(e) {
+    this.emit('error', e);
+  }
 };
 
-function writeBundle(output) {
+function writeBundle(output, options) {
+  options = options || {};
   var streams = [
     new JsonLiteralStream('CONFIG', {
       MAKEAPI_URL: makeapi.url,
@@ -63,6 +68,13 @@ function writeBundle(output) {
     var stream = streams.shift();
     if (typeof(stream) == 'string')
       stream = fs.createReadStream(path.resolve(ROOT_DIR, stream));
+    if (options.logErrors)
+      stream.on('error', function(err) {
+        var msg = 'Error writing bundle: ' + err.toString();
+        console.error(msg);
+        output.write('\n;console.error(' + JSON.stringify(msg) + ');');
+        streams.length ? writeNextStream() : output.end();
+      });
     stream.pipe(output, {end: !streams.length});
     if (streams.length) stream.on('end', writeNextStream);
   }
