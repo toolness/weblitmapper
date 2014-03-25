@@ -2,6 +2,7 @@ var _ = require('underscore');
 var should = require('should');
 
 var makeapi = require('../').makeapi;
+var settings = require('../').publicSettings;
 var fakeMakeapi = require('./lib/fake-makeapi-client');
 
 var BASIC_FORM = {
@@ -11,7 +12,7 @@ var BASIC_FORM = {
 };
 
 beforeEach(function() {
-  process.env.MAKEAPI_URL = ':memory:';
+  settings.MAKEAPI_URL = ':memory:';
   fakeMakeapi.reset();
 });
 

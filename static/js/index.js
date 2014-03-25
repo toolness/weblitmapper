@@ -3,6 +3,7 @@ var Writable = require('stream').Writable;
 var _ = require('underscore');
 var url = require('url');
 var querystring = require('querystring');
+var settings = require('./lib/public-settings');
 var weblitmap = require('./lib/weblitmap');
 var prettyDate = require('./lib/pretty-date');
 var MakeStream = require('./lib/make-stream');
@@ -16,7 +17,7 @@ function NormalizedMake(make) {
                      d: 'https://stuff.webmaker.org/avatars/' +
                         'webmaker-avatar-44x44.png'
                    });
-  this.profileURL = CONFIG.WEBMAKER_URL + '/u/' + this.username;
+  this.profileURL = settings.WEBMAKER_URL + '/u/' + this.username;
   this.updateURL = '/update?' + querystring.stringify({
     url: this.url
   });
@@ -25,7 +26,7 @@ function NormalizedMake(make) {
                        (parsedURL.pathname == '/' ? '' : parsedURL.pathname);
   this.weblitTags = {};
   weblitmap
-    .normalizeTags(this.tags, CONFIG.WEBLIT_TAG_PREFIX)
+    .normalizeTags(this.tags, settings.WEBLIT_TAG_PREFIX)
     .forEach(function(tag) {
       this.weblitTags[tag] = true;
     }, this);
@@ -33,7 +34,7 @@ function NormalizedMake(make) {
 
 NormalizedMake.prototype = {
   hasWeblitTag: function(tag) {
-    return !!this.weblitTags[CONFIG.WEBLIT_TAG_PREFIX + tag];
+    return !!this.weblitTags[settings.WEBLIT_TAG_PREFIX + tag];
   }
 };
 
@@ -80,10 +81,10 @@ var env = new nunjucks.Environment(new nunjucks.WebLoader(), {
 });
 
 var makeapi = new Make({
-  apiURL: CONFIG.MAKEAPI_URL
+  apiURL: settings.MAKEAPI_URL
 });
 var makeStream = new MakeStream(makeapi, {
-  tagPrefix: CONFIG.WEBLIT_TAG_PREFIX,
+  tagPrefix: settings.WEBLIT_TAG_PREFIX,
   sortByField: 'createdAt'
 });
 var output = new InfiniteScrollStream($(".make-gallery"));
