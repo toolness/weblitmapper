@@ -8,6 +8,14 @@ var weblitmap = require('./lib/weblitmap');
 var prettyDate = require('./lib/pretty-date');
 var MakeStream = require('./lib/make-stream');
 
+function showOriginWarning(origin, env, alerts) {
+  var html = env.render('./template/browser/origin-warning.html', {
+    origin: origin
+  });
+  var warning = $(html).appendTo(alerts);
+  warning.hide().slideDown();
+}
+
 function NormalizedMake(make) {
   var parsedURL = url.parse(make.url);
 
@@ -91,4 +99,7 @@ var output = new InfiniteScrollStream($(".make-gallery"));
 
 $(window).load(function() {
   makeStream.pipe(output);
+
+  if (settings.ORIGIN != location.protocol + '//' + location.host)
+    showOriginWarning(settings.ORIGIN, env, $("#alerts"));
 }).on('scroll resize', output.onViewChanged);

@@ -39,12 +39,14 @@
   </div>
 
   <div class="container">
+    <div id="alerts">
     {% set flashMessages = fetchAndClearFlashMessages() %}
     {% for message in flashMessages %}
       <div class="alert alert-{{ message.category }}">
         {{ message.content }}
       </div>
     {% endfor %}
+    </div>
 
     {% block content %}{% endblock %}
   </div>
