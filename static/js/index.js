@@ -5,19 +5,9 @@ var url = require('url');
 var querystring = require('querystring');
 var MakeStream = require('./lib/make-stream');
 
-// http://stackoverflow.com/a/13885228
-function isFullyVisible (elem) {
-  elem = $(elem);
-  var off = elem.offset();
-  var et = off.top;
-  var el = off.left;
-  var eh = elem.height();
-  var ew = elem.width();
-  var wh = window.innerHeight;
-  var ww = window.innerWidth;
-  var wx = window.pageXOffset;
-  var wy = window.pageYOffset;
-  return (et >= wy && el >= wx && et + eh <= wh + wy && el + ew <= ww + wx);
+function isNotTooFarOffscreen(elem) {
+  return $(elem).offset().top - window.pageYOffset < 
+         window.innerHeight;
 }
 
 function normalizeMake(make) {
@@ -43,9 +33,7 @@ function InfiniteScrollStream(el) {
   this._mostRecentItem = this._onVisibleCallback = null;
   this.onViewChanged = this._onViewChanged.bind(this);
   this.el = $(el)[0];
-  this.msnry = new Masonry(this.el, {
-    transitionDuration: 0
-  });
+  this.msnry = new Masonry(this.el);
   this.msnry.on('layoutComplete', this.onViewChanged);
 }
 
@@ -65,7 +53,7 @@ InfiniteScrollStream.prototype._write = function(make, encoding, cb) {
 
 InfiniteScrollStream.prototype._onViewChanged = function() {
   if (!this._mostRecentItem) return;
-  if (isFullyVisible(this._mostRecentItem)) {
+  if (isNotTooFarOffscreen(this._mostRecentItem)) {
     var cb = this._onVisibleCallback;
     this._mostRecentItem = this._onVisibleCallback = null;
     cb();
