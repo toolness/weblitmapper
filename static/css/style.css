@@ -59,3 +59,23 @@ body {
   background: black;
   color: white;
 }
+
+.make-gallery {
+  padding-top: 1em;
+}
+
+.make-gallery .media {
+  padding-bottom: 1em;
+}
+
+@media (max-width: 768px) {
+  /* If we don't do this, items w/o much text won't be 100% width. */
+  .make-gallery .make-item {
+    width: 100%;
+  }
+}
+
+.make-gallery .make-item {
+  border-top: 1px solid #f0f0f0;
+  padding-bottom: 2em;
+}
