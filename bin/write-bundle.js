@@ -66,6 +66,7 @@ function writeBundle(output, options) {
       .require('underscore')
       .require('url')
       .require('querystring')
+      .require('./lib/weblitmap')
       .require('./lib/pretty-date')
       .require('./lib/make-stream')
       .bundle()

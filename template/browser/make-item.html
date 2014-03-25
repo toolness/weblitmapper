@@ -10,5 +10,21 @@
     </div>
   </div>
   <p>{{ make.description }}</p>
+
+  <div class="strands">
+    {% for strand in weblitmap.strands %}
+    {% if make.hasWeblitTag(strand.tag) %}
+      <div class="strand">
+        <div class="strand-box">{{ strand.name }}</div>
+          {% for competency in strand.competencies %}
+          {% if make.hasWeblitTag(competency.tag) %}
+            <div class="competency-box" style="background-color: {{ competency.colour }}">{{ competency.name }}</div>
+          {% endif %}
+          {% endfor %}
+      </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
   <a href="{{ make.updateURL }}" class="btn btn-default btn-xs">Edit</a>
 </div>

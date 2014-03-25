@@ -3,12 +3,17 @@ var Writable = require('stream').Writable;
 var _ = require('underscore');
 var url = require('url');
 var querystring = require('querystring');
+var weblitmap = require('./lib/weblitmap');
 var prettyDate = require('./lib/pretty-date');
 var MakeStream = require('./lib/make-stream');
 
 function isNotTooFarOffscreen(elem) {
   return $(elem).offset().top - window.pageYOffset < 
          window.innerHeight;
+}
+
+function Make_hasWeblitTag(tag) {
+  return !!this.weblitTags[CONFIG.WEBLIT_TAG_PREFIX + tag];
 }
 
 function normalizeMake(make) {
@@ -26,6 +31,13 @@ function normalizeMake(make) {
   make.createdAtPrettyDate = prettyDate(new Date(make.createdAt));
   make.urlSimplified = parsedURL.hostname +
                        (parsedURL.pathname == '/' ? '' : parsedURL.pathname);
+  make.weblitTags = {};
+  weblitmap
+    .normalizeTags(make.tags, CONFIG.WEBLIT_TAG_PREFIX)
+    .forEach(function(tag) {
+      make.weblitTags[tag] = true;
+    });
+  make.hasWeblitTag = Make_hasWeblitTag;
 
   return make;
 }
@@ -43,7 +55,8 @@ util.inherits(InfiniteScrollStream, Writable);
 
 InfiniteScrollStream.prototype._write = function(make, encoding, cb) {
   var html = env.render('./template/browser/make-item.html', {
-    make: normalizeMake(make)
+    make: normalizeMake(make),
+    weblitmap: weblitmap
   });
   var item = $('<div></div>').html(html).find('.make-item')[0];
   this._mostRecentItem = item;
