@@ -29,4 +29,7 @@
   <a href="{{ make.updateURL }}" class="btn btn-default btn-xs">
     <i class="fa fa-pencil"></i> Edit
   </a>
+  <i class="fa fa-star{% if not make.doesUserLike() %}-o{% endif %}"></i>
+  {{ make.likes.length }}
+  like{% if make.likes.length == 1 %}{% else %}s{% endif %}
 </div>
