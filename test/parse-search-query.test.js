@@ -28,6 +28,10 @@ describe('parseSearchQuery()', function() {
       tags: ['Exploring']
     });
   });
+
+  it('should recognize user:<username>', function() {
+    parse(' user:bop ').should.eql({user: 'bop'});
+  });
 });
 
 describe('parseSearchQuery.namespace()', function() {
