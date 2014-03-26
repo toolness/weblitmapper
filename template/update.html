@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% macro disabledIfNotLoggedIn() -%}{% if not username %}disabled{% endif %}{%- endmacro %}
+
 {% macro tagCheckbox(thing) -%}
   <label for="weblit_{{ thing.tag }}">
     <input type="checkbox" id="weblit_{{ thing.tag }}"
@@ -17,12 +19,12 @@
 
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" class="form-control" id="title" name="title" value="{{ entry.title }}">
+      <input type="text" class="form-control" id="title" name="title" value="{{ entry.title }}" {{ disabledIfNotLoggedIn() }}>
     </div>
 
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea id="description" class="form-control" name="description">{{ entry.description }}</textarea>
+      <textarea id="description" class="form-control" name="description" {{ disabledIfNotLoggedIn() }}>{{ entry.description }}</textarea>
     </div>
 
     <div class="strands row">
@@ -57,7 +59,7 @@
       metadata for the URL stored at
       <a href="{{ WEBMAKER_URL }}">{{ WEBMAKER_DOMAIN }}</a>.</p>
 
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default" {{ disabledIfNotLoggedIn() }}>Submit</button>
   </form>
 {% endblock %}
 
