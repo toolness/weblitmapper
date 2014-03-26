@@ -20,7 +20,7 @@
     "express-persona": "0.0.9",
     "nunjucks": "1.0",
     "request": "2.33.0",
-    "makeapi-client": "mozilla/makeapi-client",
+    "makeapi-client": "0.5.17",
     "through": "2.3.4",
     "JSONStream": "0.8.0",
     "browserify": "3.33.0",
