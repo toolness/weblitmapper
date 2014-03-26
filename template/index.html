@@ -39,9 +39,9 @@
       <h4>Hashtags</h4>
       <p>Use hashtags to find resources tagged with particular Web Literacy strands and competencies. Valid choices include
         {% for tag in tags %}
-          <code>#{{ tag }}</code>
-        {% endfor %}
-        .</p>
+          {% if loop.last %}and{% endif %}
+          <code>#{{ tag }}</code>{% if loop.last %}.{% else %}, {% endif %}
+        {% endfor %}</p>
       <p>Hashtags are pretty forgiving: they're not case-sensitive, and you can even abbreviate, so <code>#exp</code> is the same as <code>#Exploring</code>.</p>
 
       <h4>Users</h4>
