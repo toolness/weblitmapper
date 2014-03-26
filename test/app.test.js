@@ -19,6 +19,21 @@ describe("app", function() {
       });
   });
 
+  it('reports infinite recursion errors', function(done) {
+    request({
+      testRoutes: {
+        'GET /500': function(req, res, next) {
+          function foo() { return foo(); }
+          foo();
+        }
+      },
+      debug: true
+    })
+      .get('/500')
+      .expect(/RangeError: Maximum call stack size exceeded/)
+      .expect(500, done);
+  });
+
   it('reports errors that are numbers', function(done) {
     request({testRoutes: {
       'GET /418': function(req, res, next) { next(418); }
