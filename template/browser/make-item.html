@@ -1,35 +1,36 @@
-<div class="make-item col-sm-4">
-  <h3>{{ make.title }}</h3>
-  <p><a href="{{ make.url }}">{{ make.urlSimplified }}</a>
-  <div class="media">
-    <a class="pull-left" href="{{ make.profileURL }}">
-      <img width="44" height="44" src="{{ make.avatarURL }}&amp;s=44" class="img-circle">
-    </a>
-    <div class="media-body">
-      <p>Submitted by <a href="{{ make.profileURL }}">{{ make.username }}</a> {{ make.createdAtPrettyDate }}</p>
-    </div>
-  </div>
-  <p>{{ make.description }}</p>
-
-  <div class="strands">
-    {% for strand in weblitmap.strands %}
-    {% if make.hasWeblitTag(strand.tag) %}
-      <div class="strand">
-        <div class="strand-box">{{ strand.name }}</div>
-          {% for competency in strand.competencies %}
-          {% if make.hasWeblitTag(competency.tag) %}
-            <div class="competency-box" style="background-color: {{ competency.colour }}">{{ competency.name }}</div>
-          {% endif %}
-          {% endfor %}
-      </div>
-    {% endif %}
-    {% endfor %}
-  </div>
-
-  <a href="{{ make.updateURL }}" class="btn btn-default btn-xs">
-    <i class="fa fa-pencil"></i> Edit
+<h3>{{ make.title }}</h3>
+<p><a href="{{ make.url }}">{{ make.urlSimplified }}</a>
+<div class="media">
+  <a class="pull-left" href="{{ make.profileURL }}">
+    <img width="44" height="44" src="{{ make.avatarURL }}&amp;s=44" class="img-circle">
   </a>
+  <div class="media-body">
+    <p>Submitted by <a href="{{ make.profileURL }}">{{ make.username }}</a> {{ make.createdAtPrettyDate }}</p>
+  </div>
+</div>
+<p>{{ make.description }}</p>
+
+<div class="strands">
+  {% for strand in weblitmap.strands %}
+  {% if make.hasWeblitTag(strand.tag) %}
+    <div class="strand">
+      <div class="strand-box">{{ strand.name }}</div>
+        {% for competency in strand.competencies %}
+        {% if make.hasWeblitTag(competency.tag) %}
+          <div class="competency-box" style="background-color: {{ competency.colour }}">{{ competency.name }}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+  {% endif %}
+  {% endfor %}
+</div>
+
+<a href="{{ make.updateURL }}" class="btn btn-default btn-xs">
+  <i class="fa fa-pencil"></i> Edit
+</a>
+
+{% if userId %}<button class="btn btn-default btn-xs js-like">{% endif %}
   <i class="fa fa-star{% if not make.doesUserLike() %}-o{% endif %}"></i>
   {{ make.likes.length }}
   like{% if make.likes.length == 1 %}{% else %}s{% endif %}
-</div>
+{% if userId %}</button>{% endif %}
