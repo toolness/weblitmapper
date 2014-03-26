@@ -32,6 +32,10 @@ describe('parseSearchQuery()', function() {
   it('should recognize user:<username>', function() {
     parse(' user:bop ').should.eql({user: 'bop'});
   });
+
+  it('should namespace if option is provided', function() {
+    parse('', {namespace: true}).should.eql({tagPrefix: 'weblit-'});
+  });
 });
 
 describe('parseSearchQuery.namespace()', function() {
