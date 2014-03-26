@@ -22,21 +22,35 @@
     on <a href="{{ WEBMAKER_URL }}">{{ WEBMAKER_DOMAIN }}</a>.</p>
   <form method="get" class="form">
     <div class="row">
-      <div class="form-group col-sm-10">
+      <div class="form-group col-sm-8">
         <label class="sr-only" for="filter-criteria">Filter Criteria</label>
         <input type="text" id="filter-criteria" value="{{ filter }}" name="filter" placeholder="Enter a filter criteria here, e.g. user:boop #Exploring #Coding" class="form-control input-sm">
       </div>
       <div class="col-sm-2">
         <button type="submit" class="btn btn-default btn-sm btn-block">Filter</button>
       </div>
+      <div class="col-sm-2">
+        <a href="#" data-slide-toggle="filter-help" class="btn btn-default btn-sm btn-block">Help</a>
+      </div>
     </div>
-    <p><small>
-      Valid tags include
-      {% for tag in tags %}
-        <code>#{{ tag }}</code>
-      {% endfor %}
-      .
-    </small></p>
+    <div id="filter-help" style="display: none">
+      <h3>Filter Criteria Help</h3>
+
+      <h4>Hashtags</h4>
+      <p>Use hashtags to find resources tagged with particular Web Literacy strands and competencies. Valid choices include
+        {% for tag in tags %}
+          <code>#{{ tag }}</code>
+        {% endfor %}
+        .</p>
+      <p>Hashtags are pretty forgiving: they're not case-sensitive, and you can even abbreviate, so <code>#exp</code> is the same as <code>#Exploring</code>.</p>
+
+      <h4>Users</h4>
+      <p>You can use <code>user:<em>username</em></code> to search for resources submitted by a particular user. For instance, <code>user:chadsansing</code> will search for anything by <a href="{{ WEBMAKER_URL }}/u/chadsansing">chadsansing</a>.</p>
+
+      <h4>Putting It All Together</h4>
+      <p>All of the above criteria can be combined by separating each term with whitespace in any order. For instance, <code>user:chadsansing #infra</code> will search for all infrastructure-related resources submitted by chadsansing.</p>
+
+    </div>
   </form>
 
   <div class="make-gallery"></div>
@@ -44,5 +58,6 @@
 
 {% block scripts %}
 <script src="{{ STATIC_ROOT }}/vendor/masonry.pkgd{{ DOT_MIN }}.js"></script>
+<script src="{{ STATIC_ROOT }}/js/slide-toggle.js"></script>
 <script src="{{ STATIC_ROOT }}/js/index.js"></script>
 {% endblock %}
