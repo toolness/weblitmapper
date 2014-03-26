@@ -6,11 +6,15 @@
     <a href="{{ bookmarklet }}">Submit a Web Literacy Resource</a>
     bookmarklet.</p>
   <form method="get" action="/update" class="form">
-    <div class="form-group">
-      <label class="sr-only" for="url">URL</label>
-      <input type="text" id="url" name="url" placeholder="http://" class="form-control">
+    <div class="row">
+      <div class="form-group col-sm-10">
+        <label class="sr-only" for="url">URL</label>
+        <input type="text" id="url" name="url" placeholder="http://" class="form-control input-sm">
+      </div>
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-default btn-sm btn-block">Submit</button>
+      </div>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
   </form>
   <h2>Gallery</h2>
   <p>Here are resources tagged with
