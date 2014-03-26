@@ -4,6 +4,7 @@
   // We need to pass an empty function callback or else jQuery
   // will execute the script itself on IE8.
   var script = $.get("/js/login.js", "", function() {}, "text");
+  var session = require('./lib/browser/session');
 
   function loginTest(name, options, cb) {
     if (!cb) {
@@ -15,11 +16,12 @@
       script.always(function() {
         var watch = sinon.spy();
         var server = sinon.fakeServer.create();
-        var csrfMeta = $('<meta name="csrf">')
+        var csrfMeta = $('<meta name="session-csrfToken">')
           .attr('content', options.csrf || 'csrf!').appendTo("body");
-        var emailMeta = $('<meta name="email">')
+        var emailMeta = $('<meta name="session-email">')
           .attr('content', options.email || '').appendTo("body");
 
+        session.refresh();
         navigator.id = {
           watch: watch,
           request: sinon.spy(),

@@ -11,15 +11,14 @@ window.showAlert = function(msg) {
 };
 
 (function() {
-  var csrfToken = $('meta[name="csrf"]').attr('content');
-  var email = $('meta[name="email"]').attr('content') || null;
+  var session = require('./lib/browser/session');
 
   navigator.id.watch({
-    loggedInUser: email,
+    loggedInUser: session.email || null,
     onlogin: function(assertion) {
       $.post("/persona/verify", {
         assertion: assertion,
-        _csrf: csrfToken
+        _csrf: session.csrfToken
       }, function(response) {
         if (response && typeof(response) == "object" &&
             response.status == "failure") {
@@ -30,7 +29,7 @@ window.showAlert = function(msg) {
     },
     onlogout: function() {
       $.post("/persona/logout", {
-        _csrf: csrfToken
+        _csrf: session.csrfToken
       }, reloadPage);      
     }
   });

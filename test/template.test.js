@@ -67,15 +67,15 @@ describe("layout.html", function() {
     }).get('/layout');
   }
 
-  it('defines csrf meta tag', function(done) {
+  it('defines session-csrfToken meta tag', function(done) {
     layoutRequest({resLocals: {csrfToken: "CSRFTOKEN IS HERE"}})
-      .expect(/<meta name="csrf" content="CSRFTOKEN IS HERE">/)
+      .expect(/<meta name="session-csrfToken" content="CSRFTOKEN IS HERE">/)
       .end(done);
   });
 
-  it('defines email meta tag', function(done) {
+  it('defines session-email meta tag', function(done) {
     layoutRequest({resLocals: {email: "foo@bar.org"}})
-      .expect(/<meta name="email" content="foo@bar.org">/)
+      .expect(/<meta name="session-email" content="foo@bar.org">/)
       .end(done);
   });
 
