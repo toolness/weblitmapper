@@ -13,7 +13,7 @@ const SSL_CERT = process.env['SSL_CERT'];
 const ORIGIN = process.env['ORIGIN'] || (DEBUG
   ? (SSL_KEY ? 'https' : 'http') + '://localhost:' + PORT
   : null);
-const STATIC_ROOT = process.env['STATIC_ROOT'] || ORIGIN;
+const STATIC_ROOT = process.env['STATIC_ROOT'] || '';
 
 assert.ok(ORIGIN, 'ORIGIN env var should be defined.');
 assert.ok(COOKIE_SECRET, 'COOKIE_SECRET env var should be defined.');
