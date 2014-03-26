@@ -1,7 +1,8 @@
-var settings = require('../public-settings');
-var template = require('./lib/browser/template');
+$(window).load(function() {
+  var settings = require('./lib/public-settings');
+  var template = require('./lib/browser/template');
+  var alerts = $("#alerts");
 
-function maybeShowOriginWarning(alerts) {
   if (settings.ORIGIN == location.protocol + '//' + location.host)
     return;
 
@@ -10,6 +11,4 @@ function maybeShowOriginWarning(alerts) {
   });
   var warning = $(html).appendTo(alerts);
   warning.hide().slideDown();
-}
-
-module.exports = maybeShowOriginWarning;
+});

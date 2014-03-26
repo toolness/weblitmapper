@@ -1,6 +1,5 @@
 var _ = require('underscore');
 var settings = require('./lib/public-settings');
-var maybeShowOriginWarning = require('./lib/browser/origin-warning');
 var MakeStream = require('./lib/make-stream');
 var InfiniteScrollStream = require('./lib/browser/infinite-scroll-stream');
 
@@ -15,5 +14,4 @@ var output = new InfiniteScrollStream($(".make-gallery"));
 
 $(window).load(function() {
   makeStream.pipe(output);
-  maybeShowOriginWarning($('#alerts'));
 }).on('scroll resize', output.onViewChanged);
