@@ -12,6 +12,8 @@ $(window).load(function() {
   }));
   var output = new InfiniteScrollStream($(".make-gallery"));
 
-  makeStream.pipe(output);
+  makeStream.on('end', function() {
+    $(".make-gallery-throbber").fadeOut();
+  }).pipe(output);
   $(window).on('scroll resize', output.onViewChanged)
 });
