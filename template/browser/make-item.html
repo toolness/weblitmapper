@@ -1,5 +1,5 @@
 <h3>{{ make.title }}</h3>
-<p><a href="{{ make.url }}">{{ make.urlSimplified }}</a>
+<p><a href="{{ make.url }}">{{ make.url|simplifyUrl }}</a>
 <div class="media">
   <a class="pull-left" href="{{ make.profileURL }}">
     <img width="44" height="44" src="{{ make.avatarURL }}&amp;s=44" class="img-circle">
