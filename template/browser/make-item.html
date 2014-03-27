@@ -30,7 +30,11 @@
 </a>
 
 {% if userId %}<button class="btn btn-default btn-xs js-like">{% endif %}
-  <i class="fa fa-star{% if not make.currentUserLike() %}-o{% endif %}"></i>
+  {% if make.likeInProgress %}
+    <i class="fa fa-spinner fa-spin"></i>
+  {% else %}
+    <i class="fa fa-star{% if not make.currentUserLike() %}-o{% endif %}"></i>
+  {% endif %}
   {{ make.likes.length }}
   like{% if make.likes.length == 1 %}{% else %}s{% endif %}
 {% if userId %}</button>{% endif %}
