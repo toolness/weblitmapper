@@ -1,17 +1,11 @@
 /* http://alexpeattie.com/projects/feedback_button/ */
 
 #feedback { 
+  position: fixed;
   height: 104px; 
   width: 104px; 
-  position: fixed; 
-  top: 40%; 
-  z-index: 999;
+  z-index: 9999999;
   pointer-events: none;
-  transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg); 
-  -moz-transform: rotate(-90deg); 
-  -o-transform: rotate(-90deg); 
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 #feedback a { 
@@ -32,4 +26,22 @@
 
 #feedback a:hover { 
   background: #06c; 
+}
+
+@media (max-width: 768px) {
+  #feedback {
+    top: 0;
+    right: 10px;
+  }
+}
+
+@media (min-width: 769px) {
+  #feedback {
+    top: 40%; 
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+    -o-transform: rotate(-90deg); 
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  }
 }
