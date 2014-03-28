@@ -50,7 +50,7 @@ function startServer() {
     }, app);
 
   if (!DEBUG)
-    lib.writeBundle(fs.createWriteStream(bundlePath));
+    lib.writeBundle().pipe(fs.createWriteStream(bundlePath));
 
   server.listen(PORT, function() {
     if (ENABLE_STUBBYID)
