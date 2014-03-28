@@ -86,6 +86,15 @@ string), the boolean is true; otherwise, it's false.
   not provided, the app will self-host its own static assets. Note that
   this URL should *not* end with a `/`.
 
+* `DISQUS_SHORTNAME` is the shortname for your Disqus instance, if one
+  exists. If this environment variable is empty or undefined, Disqus
+  integration will be disabled.
+
+* `DISQUS_ORIGIN` is the origin of your website as provided to Disqus.
+  This defaults to `ORIGIN`, but if you want to display your
+  production instance's actual comments on your local machine, you
+  can set this to the origin of your production instance.
+
 ## Tests
 
 All tests can be run via `npm test`.
