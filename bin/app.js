@@ -36,12 +36,10 @@ function startServer() {
                          require('../test/lib/stubbyid-persona'),
     personaJsUrl: ENABLE_STUBBYID && (STATIC_ROOT + '/vendor/stubbyid.js'),
     staticRoot: STATIC_ROOT,
-    origin: ORIGIN,
-    writeBundle: DEBUG && lib.writeBundle
+    origin: ORIGIN
   });
 
   var server = app;
-  var bundlePath = lib.paths.fromRoot('static/js/bundle.js');
 
   if (SSL_KEY)
     server = require('https').createServer({
@@ -50,7 +48,7 @@ function startServer() {
     }, app);
 
   if (!DEBUG)
-    lib.writeBundle().pipe(fs.createWriteStream(bundlePath));
+    lib.writeBundle({writeToFile: true});
 
   server.listen(PORT, function() {
     if (ENABLE_STUBBYID)

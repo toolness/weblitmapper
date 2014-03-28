@@ -1,13 +1,14 @@
-var through = require('through');
+var fs = require('fs');
+var should = require('should');
 
 var writeBundle = require('../').writeBundle;
 
 describe('writeBundle()', function() {
   it('should not explode', function(done) {
-    writeBundle().pipe(through(function(data) {
-      this.queue(data);
-    }, function() {
+    if (fs.existsSync(writeBundle.PATH)) fs.unlinkSync(writeBundle.PATH);
+    writeBundle({writeToFile: true}).on('end', function() {
+      fs.existsSync(writeBundle.PATH).should.be.true;
       done();
-    }));
+    });
   });
 });

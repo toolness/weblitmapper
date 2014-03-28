@@ -7,7 +7,6 @@ var appLib = require('../../');
 exports.app = function(options) {
   options = _.defaults(options || {}, {
     origin: 'http://example.org',
-    writeBundle: appLib.writeBundle,
     cookieSecret: 's3cret'
   });
 
