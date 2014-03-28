@@ -15,5 +15,5 @@ $(window).load(function() {
   makeStream.on('end', function() {
     $(".make-gallery-throbber").fadeOut();
   }).pipe(output);
-  $(window).on('scroll resize', output.onViewChanged)
+  $(window).on('scroll resize', output.onViewChanged);
 });

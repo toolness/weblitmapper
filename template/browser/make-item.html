@@ -29,6 +29,12 @@
   <i class="fa fa-pencil"></i> Edit
 </a>
 
+{% if make.disqusURL %}
+<a href="{{ make.disqusURL }}" data-disqus-identifier="{{ make.disqusIdentifier }}" class="btn btn-default btn-xs">
+  0 Comments
+</a>
+{% endif %}
+
 {% if userId %}<button class="btn btn-default btn-xs js-like">{% endif %}
   {% if make.likeInProgress %}
     <i class="fa fa-spinner fa-spin"></i>
