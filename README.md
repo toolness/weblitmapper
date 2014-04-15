@@ -8,6 +8,8 @@ to the Webmaker community via a bookmarklet.
 
 Node 0.10.
 
+MongoDB 2.4.
+
 [PhantomJS][] 1.8 or later is used to automatically run the
 browser-side tests from the command-line, but this can be optionally
 disabled.
@@ -31,6 +33,9 @@ Then visit http://localhost:3000.
 boolean value, if the variable exists with *any* value (even the empty
 string), the boolean is true; otherwise, it's false.
 
+* `MONGODB_URL` is the URL to the MongoDB instance. If not present,
+  `mongodb://localhost/weblitmapper` is used.
+
 * `LOGINAPI_AUTH` is the *username:password* pair that will be
   used to authenticate with the Webmaker login server, e.g.
   `john:1234`.
@@ -39,14 +44,6 @@ string), the boolean is true; otherwise, it's false.
   Defaults to https://login.webmaker.org. Use `:fake:` to always map
   the username part of the user's email address to their Webmaker username,
   which is useful for debugging/offline development.
-
-* `MAKEAPI_PRIVATE_KEY` is the secret shared key for the Webmaker Make API.
-
-* `MAKEAPI_PUBLIC_KEY` is the public key for the Webmaker Make API.
-
-* `MAKEAPI_URL` is the URL for the Webmaker Make API. Defaults
-  to https://makeapi.webmaker.org. Use `:memory:` to use an in-memory
-  store for debugging/offline development.
 
 * `WEBMAKER_URL` is the URL for the user-facing Webmaker site. It will
   be used for display purposes only, as a means to direct users to
