@@ -14,6 +14,7 @@
     "supertest": "0.7.1"
   },
   "dependencies": {
+    "mongoose": "3.8.8",
     "express": "3.4.4",
     "connect-flash": "0.1.1",
     "client-sessions": "0.4.1",
