@@ -1,15 +1,20 @@
 var should = require('should');
 
+var RESOURCES = require('./fixtures/weblit-resources.json');
+
 var db = require('./db');
 var WeblitResource = require('../').module('./model/weblit-resource');
-var fixture = require('./fixtures/weblit-resources.json');
 
 describe('WeblitResource', function() {
   beforeEach(db.wipe);
+  beforeEach(function(done) {
+    WeblitResource.create(RESOURCES, done);
+  });
 
   it('should work', function(done) {
-    var resource = new WeblitResource(fixture[0]);
-    resource.save(function(err, resource) {
+    WeblitResource.findOne({
+      title: "Using CSS Text-Shadow to Create Cool Text Effects"
+    }, function(err, resource) {
       if (err) return done(err);
       resource.username.should.eql('chadsansing');
       resource.likes[0].username.should.eql('michelle');
@@ -19,14 +24,10 @@ describe('WeblitResource', function() {
   });
 
   it('should raise a fucking duplicate key error', function(done) {
-    var resource = new WeblitResource(fixture[0]);
+    var resource = new WeblitResource(RESOURCES[0]);
     resource.save(function(err) {
-      if (err) return done(err);
-      var resource = new WeblitResource(fixture[0]);
-      resource.save(function(err) {
-        err.code.should.equal(11000);
-        done();
-      });
-    });      
+      err.code.should.equal(11000);
+      done();
+    });
   });
 });
