@@ -1,0 +1,15 @@
+[
+  {
+    "title":"Using CSS Text-Shadow to Create Cool Text Effects",
+    "description":"I use sites like this to learn different CSS techniques and to pick up vocab that helps me conceptualize and figure out future searches. Sites like this help me learn how to phrase searches for techniques I don't know how to do yet.",
+    "url":"http://line25.com/articles/using-css-text-shadow-to-create-cool-text-effects",
+    "username":"chadsansing",
+    "createdAt":"2014-03-14T12:25:02.756Z",
+    "tags":["weblit-Exploring","weblit-Search","weblit-Building","weblit-Composing","weblit-DesignAccessibility","weblit-Coding"],
+    "emailHash":"531609e90e565de450e06c3c376d4bad",
+    "likes": [{
+      "username": "michelle",
+      "emailHash": "4c22059c7b5015b666735d5951ef2686"
+    }]
+  }
+]
