@@ -17,4 +17,16 @@ describe('WeblitResource', function() {
       done();
     });
   });
+
+  it('should raise a fucking duplicate key error', function(done) {
+    var resource = new WeblitResource(fixture[0]);
+    resource.save(function(err) {
+      if (err) return done(err);
+      var resource = new WeblitResource(fixture[0]);
+      resource.save(function(err) {
+        err.code.should.equal(11000);
+        done();
+      });
+    });      
+  });
 });
