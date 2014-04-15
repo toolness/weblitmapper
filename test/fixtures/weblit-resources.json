@@ -11,5 +11,15 @@
       "username": "michelle",
       "emailHash": "4c22059c7b5015b666735d5951ef2686"
     }]
+  },
+  {
+    "title": "'deleted' entry",
+    "description": "This is an entry without any weblit tags, so it shouldn't show up in searches.",
+    "url": "http://intangible.ca/",
+    "username": "taliesan",
+    "createdAt":"2014-03-14T12:25:02.756Z",
+    "tags": [],
+    "emailHash": "e20157abc4e9b3ee1751f9a7d745df16",
+    "likes": []
   }
 ]
