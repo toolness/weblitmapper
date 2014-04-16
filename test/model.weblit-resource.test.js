@@ -6,16 +6,8 @@ var db = require('./db');
 var WeblitResource = require('../').module('./model/weblit-resource');
 
 describe('WeblitResource', function() {
-  var resources;
-
   beforeEach(db.wipe);
-  beforeEach(function(done) {
-    WeblitResource.create(RESOURCES, function(err) {
-      if (err) return done(err);
-      resources = [].slice.call(arguments, 1);
-      done();
-    });
-  });
+  beforeEach(db.loadFixture(RESOURCES));
 
   it('should work', function(done) {
     WeblitResource.findOne({
@@ -30,7 +22,7 @@ describe('WeblitResource', function() {
   });
 
   it('should raise a fucking duplicate key error', function(done) {
-    var resource = new WeblitResource(RESOURCES[0]);
+    var resource = new WeblitResource({url: RESOURCES[0].url});
     resource.save(function(err) {
       err.code.should.equal(11000);
       done();
@@ -67,12 +59,12 @@ describe('WeblitResource', function() {
   });
 
   it('should find tagged resources', function() {
-    resources[1].title.should.eql("'deleted' entry");
+    RESOURCES[1].title.should.eql("'deleted' entry");
     WeblitResource.findTagged(function(err, tagged) {
       if (err) return done(err);
       tagged.length.should.be.above(0);
       tagged.forEach(function(r) {
-        r.title.should.not.eql(resources[1].title);
+        r.title.should.not.eql(RESOURCES[1].title);
       });
     });
   });
