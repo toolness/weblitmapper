@@ -1,4 +1,5 @@
 var should = require('should');
+var _ = require('underscore');
 
 var RESOURCES = require('./fixture/weblit-resources.json');
 
@@ -66,6 +67,34 @@ describe('WeblitResource', function() {
       tagged.forEach(function(r) {
         r.title.should.not.eql(RESOURCES[1].title);
       });
+    });
+  });
+
+  it('should represent itself as public JSON', function() {
+    var r = new WeblitResource({
+      url: 'http://example.org',
+      email: 'foo@example.org',
+      emailHash: 'foohash',
+      title: 'hello',
+      likes: [{
+        username: 'bar',
+        email: 'bar@example.org',
+        emailHash: 'barhash'
+      }]
+    });
+    var publicR = r.toPublicJSON();
+
+    publicR.id.should.be.a('string');
+    publicR.createdAt.should.be.a('string');
+    _.omit(publicR, 'createdAt', 'id').should.eql({
+      title: 'hello',
+      url: 'http://example.org',
+      emailHash: 'foohash',
+      tags: [],
+      likes: [{
+        username: 'bar',
+        emailHash: 'barhash'
+      }]      
     });
   });
 
