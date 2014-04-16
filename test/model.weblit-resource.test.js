@@ -30,4 +30,33 @@ describe('WeblitResource', function() {
       done();
     });
   });
+
+  it('should convert email to emailHash', function(done) {
+    // http://en.gravatar.com/site/implement/hash/
+    var resource = new WeblitResource({
+      url: 'http://example.org',
+      email: 'MyEmailAddress@example.com '
+    });
+    resource.save(function(err, resource) {
+      if (err) return done(err);
+      resource.emailHash.should.eql('0bc83cb571cd1c50ba6f3e8a78ef1346');
+      done();
+    });
+  });
+
+  it('should convert email to emailHash in likes', function(done) {
+    var resource = new WeblitResource({
+      url: 'http://example.org',
+      likes: [{
+        username: 'foo',
+        email: 'MyEmailAddress@example.com '
+      }]
+    });
+    resource.save(function(err, resource) {
+      if (err) return done(err);
+      resource.likes[0].emailHash
+        .should.eql('0bc83cb571cd1c50ba6f3e8a78ef1346');
+      done();
+    });
+  });
 });
