@@ -6,9 +6,15 @@ var db = require('./db');
 var WeblitResource = require('../').module('./model/weblit-resource');
 
 describe('WeblitResource', function() {
+  var resources;
+
   beforeEach(db.wipe);
   beforeEach(function(done) {
-    WeblitResource.create(RESOURCES, done);
+    WeblitResource.create(RESOURCES, function(err) {
+      if (err) return done(err);
+      resources = [].slice.call(arguments, 1);
+      done();
+    });
   });
 
   it('should work', function(done) {
@@ -58,5 +64,31 @@ describe('WeblitResource', function() {
         .should.eql('0bc83cb571cd1c50ba6f3e8a78ef1346');
       done();
     });
+  });
+
+  it('like() should work', function() {
+    var r = new WeblitResource({url: 'http://example.org'});
+
+    r.likes.length.should.eql(0);
+    r.like('foo', 'foo@bar.org');
+    r.likes.length.should.eql(1);
+    r.like('foo', 'foo@bar.org');
+    r.likes.length.should.eql(1);
+  });
+
+  it('unlike() should work', function() {
+    var r = new WeblitResource({
+      url: 'http://example.org',
+      likes: [{
+        username: 'foo',
+        email: 'foo@bar.org'
+      }]
+    });
+
+    r.likes.length.should.eql(1);
+    r.unlike('foo');
+    r.likes.length.should.eql(0);
+    r.unlike('foo');
+    r.likes.length.should.eql(0);
   });
 });
