@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('supertest');
 var should = require('should');
 
+var db = require('./db');
 var website = require('../').website;
 var template = require('../').template;
 
@@ -44,5 +45,30 @@ describe("website", function() {
       .expect(/foo@example\.org/)
       .expect(/js-logout/)
       .expect(200, done);
+  });
+
+  describe('/json', function(done) {
+    beforeEach(db.wipe);
+    beforeEach(db.loadFixture(require('./fixture/weblit-resources.json')));
+
+    it('should return results when given valid page #', function(done) {
+      request(app)
+        .get('/json?p=1')
+        .expect(/chadsansing/)
+        .expect(200, done);
+    });
+
+    it('should return empty results when given big page #', function(done) {
+      request(app)
+        .get('/json?p=999')
+        .expect([])
+        .expect(200, done);
+    });
+
+    it('should return 400 when given invalid page #', function(done) {
+      request(app)
+        .get('/json')
+        .expect(400, done);
+    });
   });
 });
