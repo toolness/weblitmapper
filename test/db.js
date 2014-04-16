@@ -1,9 +1,15 @@
 var assert = require('assert');
+var fs = require('fs');
 var async = require('async');
 var _ = require('underscore');
 
 var db = Object.create(require('../').db);
-var WeblitResource = require('../').module('./model/weblit-resource');
+
+function loadAllModels() {
+  fs.readdirSync(__dirname + '/../lib/model').forEach(function(filename) {
+    require('../').module('./model/' + filename);
+  });
+}
 
 assert(!db.wipe);
 
@@ -11,7 +17,9 @@ db.wipe = function(cb) {
   function wipe() {
     db.db.dropDatabase(function(err) {
       if (err) return cb(err);
-      WeblitResource.ensureIndexes(cb);
+      async.each(Object.keys(db.models), function(modelName, cb) {
+        db.models[modelName].ensureIndexes(cb);
+      }, cb);
     });
   }
 
@@ -32,5 +40,7 @@ db.loadFixture = function(models, cb) {
 
   return cb ? loadFixture(cb) : loadFixture;
 };
+
+loadAllModels();
 
 module.exports = db;
