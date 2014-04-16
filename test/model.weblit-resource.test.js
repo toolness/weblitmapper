@@ -66,6 +66,17 @@ describe('WeblitResource', function() {
     });
   });
 
+  it('should find tagged resources', function() {
+    resources[1].title.should.eql("'deleted' entry");
+    WeblitResource.findTagged(function(err, tagged) {
+      if (err) return done(err);
+      tagged.length.should.be.above(0);
+      tagged.forEach(function(r) {
+        r.title.should.not.eql(resources[1].title);
+      });
+    });
+  });
+
   it('like() should work', function() {
     var r = new WeblitResource({url: 'http://example.org'});
 
