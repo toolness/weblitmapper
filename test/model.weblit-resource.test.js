@@ -1,6 +1,6 @@
 var should = require('should');
 
-var RESOURCES = require('./fixtures/weblit-resources.json');
+var RESOURCES = require('./fixture/weblit-resources.json');
 
 var db = require('./db');
 var WeblitResource = require('../').module('./model/weblit-resource');
