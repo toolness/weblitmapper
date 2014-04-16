@@ -77,7 +77,7 @@ describe('WeblitResource', function() {
     });
   });
 
-  it('like() should work', function() {
+  it('should be likeable', function() {
     var r = new WeblitResource({url: 'http://example.org'});
 
     r.likes.length.should.eql(0);
@@ -87,7 +87,7 @@ describe('WeblitResource', function() {
     r.likes.length.should.eql(1);
   });
 
-  it('unlike() should work', function() {
+  it('should be unlikeable', function() {
     var r = new WeblitResource({
       url: 'http://example.org',
       likes: [{
