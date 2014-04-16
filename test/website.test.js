@@ -7,16 +7,17 @@ var website = require('../').website;
 var template = require('../').template;
 
 describe("website", function() {
-  var app, email;
+  var app, email, username;
 
   beforeEach(function(done) {
     email = null;
+    username = null;
     app = express();
 
     app.use(express.json());
     app.use(function(req, res, next) {
       req.csrfToken = function() { return 'irrelevant'; }
-      req.session = {email: email};
+      req.session = {email: email, username: username};
       next();
     });
 
@@ -45,6 +46,31 @@ describe("website", function() {
       .expect(/foo@example\.org/)
       .expect(/js-logout/)
       .expect(200, done);
+  });
+
+  describe('/:id/like and /:id/unlike', function(done) {
+    var id = '534e1fb132bb0b5810c7bbf5';
+    var likeURL = '/' + id + '/like';
+    var unlikeURL = '/' + id + '/unlike';
+
+    beforeEach(db.wipe);
+    beforeEach(db.loadFixture(require('./fixture/weblit-resources.json')));
+    beforeEach(function() {
+      email = 'foo@bar.org';
+      username = 'foo';
+    });
+
+    it('should work when liking', function(done) {
+      request(app)
+        .post(likeURL)
+        .expect(200, done);
+    });
+
+    it('should work when unliking', function(done) {
+      request(app)
+        .post(unlikeURL)
+        .expect(200, done);
+    });
   });
 
   describe('/json', function(done) {
