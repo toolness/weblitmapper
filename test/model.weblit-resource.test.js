@@ -6,11 +6,11 @@ var RESOURCES = require('./fixture/weblit-resources.json');
 var db = require('./db');
 var WeblitResource = require('../').module('./model/weblit-resource');
 
-describe('WeblitResource', function() {
+describe('WeblitResource (with fixture data)', function() {
   beforeEach(db.wipe);
   beforeEach(db.loadFixture(RESOURCES));
 
-  it('should work', function(done) {
+  it('should read fixture data', function(done) {
     WeblitResource.findOne({
       title: "Using CSS Text-Shadow to Create Cool Text Effects"
     }, function(err, resource) {
@@ -29,6 +29,21 @@ describe('WeblitResource', function() {
       done();
     });
   });
+
+  it('should find tagged resources', function() {
+    RESOURCES[1].title.should.eql("'deleted' entry");
+    WeblitResource.findTagged(function(err, tagged) {
+      if (err) return done(err);
+      tagged.length.should.be.above(0);
+      tagged.forEach(function(r) {
+        r.title.should.not.eql(RESOURCES[1].title);
+      });
+    });
+  });
+});
+
+describe('WeblitResource (when saved)', function() {
+  beforeEach(db.wipe);
 
   it('should convert email to emailHash', function(done) {
     // http://en.gravatar.com/site/implement/hash/
@@ -58,18 +73,9 @@ describe('WeblitResource', function() {
       done();
     });
   });
+});
 
-  it('should find tagged resources', function() {
-    RESOURCES[1].title.should.eql("'deleted' entry");
-    WeblitResource.findTagged(function(err, tagged) {
-      if (err) return done(err);
-      tagged.length.should.be.above(0);
-      tagged.forEach(function(r) {
-        r.title.should.not.eql(RESOURCES[1].title);
-      });
-    });
-  });
-
+describe('WeblitResource (without being saved)', function() {
   it('should represent itself as public JSON', function() {
     var r = new WeblitResource({
       url: 'http://example.org',
