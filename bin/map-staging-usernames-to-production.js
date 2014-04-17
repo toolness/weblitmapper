@@ -1,6 +1,7 @@
 var fs = require('fs');
 var crypto = require('crypto');
 var path = require('path');
+var _ = require('underscore');
 var through = require('through');
 var request = require('request');
 var async = require('async');
@@ -195,5 +196,12 @@ WeblitStream()
     fs.writeFileSync(CACHE_FILENAME,
                      JSON.stringify(cache, null, 2), 'utf-8');
   })
+  .pipe(through(function(make) {
+    var newMake = _.pick(make, 'title', 'url', 'description',
+                         'emailHash', 'createdAt', 'tags');
+    newMake.likes = make.productionLikes;
+    newMake.username = make.productionUsername;
+    this.queue(newMake);
+  }))
   .pipe(JSONStream.stringify())
   .pipe(process.stdout);
