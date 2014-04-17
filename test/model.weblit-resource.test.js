@@ -29,14 +29,48 @@ describe('WeblitResource (with fixture data)', function() {
       done();
     });
   });
+});
 
-  it('should find tagged resources', function() {
+describe('WeblitResource.findFromStringQuery()', function() {
+  beforeEach(db.wipe);
+  beforeEach(db.loadFixture(RESOURCES));
+
+  it('should find tagged resources', function(done) {
     RESOURCES[1].title.should.eql("'deleted' entry");
-    WeblitResource.findTagged(function(err, tagged) {
+    WeblitResource.findFromStringQuery('', function(err, tagged) {
       if (err) return done(err);
       tagged.length.should.be.above(0);
       tagged.forEach(function(r) {
         r.title.should.not.eql(RESOURCES[1].title);
+      });
+      done();
+    });
+  });
+
+  it('should paginate results', function(done) {
+    var stuff = [];
+    for (var i = 0; i < 10; i++)
+      stuff.push({
+        model: 'WeblitResource',
+        url: 'http://example.org/' + i,
+        tags: ['weblit-Building']
+      });
+    db.loadFixture(stuff, function(err) {
+      if (err) return done(err);
+      WeblitResource.findFromStringQuery('', {
+        page: 1,
+        pageSize: 5
+      }, function(err, tagged) {
+        if (err) return done(err);
+        tagged.length.should.eql(5);
+        WeblitResource.findFromStringQuery('', {
+          page: 15,
+          pageSize: 5
+        }, function(err, tagged) {
+          if (err) return done(err);
+          tagged.length.should.eql(0);          
+          done();
+        });
       });
     });
   });

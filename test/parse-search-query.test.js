@@ -30,22 +30,29 @@ describe('parseSearchQuery()', function() {
   });
 
   it('should recognize user:<username>', function() {
-    parse(' user:bop ').should.eql({user: 'bop'});
+    parse(' user:bop ').should.eql({username: 'bop'});
   });
 
-  it('should namespace if option is provided', function() {
-    parse('', {namespace: true}).should.eql({tagPrefix: 'weblit-'});
+  it('should convert to mongo query if option is provided', function() {
+    parse('', {mongo: true}).should.eql({
+      $query: {tags: {$not: {$size: 0}}},
+      $orderby: {createdAt: -1}
+    });
   });
 });
 
-describe('parseSearchQuery.namespace()', function() {
-  it('should search for tagPrefix when no tags are provided', function() {
-    parse.namespace({}).should.eql({tagPrefix: 'weblit-'});
+describe('parseSearchQuery.mongo()', function() {
+  it('should search for tagged docs when no tags are provided', function() {
+    parse.mongo({}).should.eql({
+      $query: {tags: {$not: {$size: 0}}},
+      $orderby: {createdAt: -1}
+    });
   });
 
   it('should prefix tag names', function() {
-    parse.namespace({tags: ['Exploring', 'Building']}).should.eql({
-      tags: ['weblit-Exploring', 'weblit-Building']
+    parse.mongo({tags: ['Exploring', 'Building']}).should.eql({
+      $query: {tags: {$all: ['weblit-Exploring', 'weblit-Building']}},
+      $orderby: {createdAt: -1}
     });
   });
 });
