@@ -2,7 +2,7 @@ var _ = require('underscore');
 var should = require('should');
 
 var db = require('./db');
-var makeapi = require('../').makeapi;
+var MakeForm = require('../').MakeForm;
 var WeblitResource = require('../').module('./model/weblit-resource');
 
 var BASIC_FORM = {
@@ -11,11 +11,11 @@ var BASIC_FORM = {
   description: 'a fine example page.'
 };
 
-describe('makeapi.MakeForm', function() {
+describe('MakeForm', function() {
   beforeEach(db.wipe);
 
   it('works with tags', function() {
-    var form = new makeapi.MakeForm(_.extend({
+    var form = new MakeForm(_.extend({
       'weblit_Exploring': 'on'
     }, BASIC_FORM));
 
@@ -38,7 +38,7 @@ describe('makeapi.MakeForm', function() {
   });
 
   it('creates makes when needed', function(done) {
-    var form = new makeapi.MakeForm(_.clone(BASIC_FORM));
+    var form = new MakeForm(_.clone(BASIC_FORM));
 
     form.createOrUpdate({
       make: null,
@@ -56,7 +56,7 @@ describe('makeapi.MakeForm', function() {
   });
 
   it('saves existing makes when needed', function(done) {
-    var form = new makeapi.MakeForm(_.clone(BASIC_FORM));
+    var form = new MakeForm(_.clone(BASIC_FORM));
     var make = new WeblitResource({
       url: BASIC_FORM.url,
       title: 'hmm',
@@ -79,7 +79,7 @@ describe('makeapi.MakeForm', function() {
 
   it('validates properly', function() {
     function validate(options) {
-      var form = new makeapi.MakeForm(_.extend({}, BASIC_FORM, options));
+      var form = new MakeForm(_.extend({}, BASIC_FORM, options));
       return form.validate();
     }
 
