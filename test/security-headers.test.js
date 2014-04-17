@@ -42,12 +42,6 @@ describe("app security headers", function() {
       .expect('Content-Security-Policy', /'self'/, done);
   });
 
-  it('enable content security policy on persona.org', function(done) {
-    request()
-      .get('/')
-      .expect('Content-Security-Policy', /persona\.org/, done);
-  });
-
   it('do not allow eval() by default', function(done) {
     request()
       .get('/')

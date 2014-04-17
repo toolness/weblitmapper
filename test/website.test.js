@@ -7,17 +7,16 @@ var website = require('../').website;
 var template = require('../').template;
 
 describe("website", function() {
-  var app, email, username;
+  var app, username;
 
   beforeEach(function(done) {
-    email = null;
     username = null;
     app = express();
 
     app.use(express.json());
     app.use(function(req, res, next) {
       req.csrfToken = function() { return 'irrelevant'; }
-      req.session = {email: email, username: username};
+      req.session = {username: username};
       next();
     });
 
@@ -40,10 +39,10 @@ describe("website", function() {
   });
 
   it('should show logout button when logged in', function(done) {
-    email = 'foo@example.org';
+    username = 'foo';
     request(app)
       .get('/')
-      .expect(/foo@example\.org/)
+      .expect(/foo/)
       .expect(/js-logout/)
       .expect(200, done);
   });
@@ -56,7 +55,6 @@ describe("website", function() {
     beforeEach(db.wipe);
     beforeEach(db.loadFixture(require('./fixture/weblit-resources.json')));
     beforeEach(function() {
-      email = 'foo@bar.org';
       username = 'foo';
     });
 

@@ -7,7 +7,6 @@ var assert = require('assert');
 const PORT = process.env['PORT'] || 3000;
 const COOKIE_SECRET = process.env['COOKIE_SECRET'] || null;
 const DEBUG = ('DEBUG' in process.env);
-const ENABLE_STUBBYID = ('ENABLE_STUBBYID' in process.env);
 const SSL_KEY = process.env['SSL_KEY'];
 const SSL_CERT = process.env['SSL_CERT'];
 const ORIGIN = process.env['ORIGIN'] || (DEBUG
@@ -22,8 +21,6 @@ assert.ok((SSL_KEY && SSL_CERT) || (!SSL_KEY && !SSL_CERT),
 if (SSL_KEY)
   assert.equal(url.parse(ORIGIN).protocol, 'https:',
                'ORIGIN must be https if SSL is enabled.');
-if (ENABLE_STUBBYID)
-  assert.ok(DEBUG, 'ENABLE_STUBBYID must be used with DEBUG.');
 
 process.env['ORIGIN'] = ORIGIN;
 
@@ -32,9 +29,6 @@ function startServer() {
   var app = lib.app.build({
     cookieSecret: COOKIE_SECRET,
     debug: DEBUG,
-    personaDefineRoutes: ENABLE_STUBBYID &&
-                         require('../test/lib/stubbyid-persona'),
-    personaJsUrl: ENABLE_STUBBYID && (STATIC_ROOT + '/vendor/stubbyid.js'),
     staticRoot: STATIC_ROOT,
     origin: ORIGIN
   });
@@ -51,13 +45,9 @@ function startServer() {
     lib.writeBundle({writeToFile: true});
 
   server.listen(PORT, function() {
-    if (ENABLE_STUBBYID)
-      console.log("**   STUBBYID PERSONA SIMULATOR ENABLED   **\n" +
-                  "** THIS MEANS USERS CAN LOG IN AS ANYONE! **");
-    else
-      console.log("Persona audience set to " + ORIGIN +
-                  ".\nSite must be accessed through the above URL, or " +
-                  "login will fail.");
+    console.log("Origin set to " + ORIGIN +
+                ".\nSite must be accessed through the above URL, or " +
+                "login will fail.");
     console.log("Listening on port " + PORT + ".");
   });
 }

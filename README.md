@@ -16,12 +16,16 @@ disabled.
 
 ## Quick Start
 
+First, go to http://webmakerconnect.org and set up an app for yourself.
+
 ```
 git clone git://github.com/toolness/weblitmapper.git
 cd weblitmapper
 npm install
 npm test
 source .env.example
+export WMCONNECT_API_KEY='your Webmaker Connect API key goes here'
+export WMCONNECT_API_SECRET='your Webmaker Connect API secret goes here'
 node bin/app.js
 ```
 
@@ -36,14 +40,12 @@ string), the boolean is true; otherwise, it's false.
 * `MONGODB_URL` is the URL to the MongoDB instance. If not present,
   `mongodb://localhost/weblitmapper` is used.
 
-* `LOGINAPI_AUTH` is the *username:password* pair that will be
-  used to authenticate with the Webmaker login server, e.g.
-  `john:1234`.
+* `WMCONNECT_API_KEY` is your Webmaker Connect API key.
 
-* `LOGINAPI_URL` is the URL for the Webmaker login server.
-  Defaults to https://login.webmaker.org. Use `:fake:` to always map
-  the username part of the user's email address to their Webmaker username,
-  which is useful for debugging/offline development.
+* `WMCONNECT_API_SECRET` is your Webmaker Connect API secret.
+
+* `WMCONNECT_ORIGIN` is the origin of the Webmaker Connect website. Defaults
+  to `https://webmakerconnect.org`.
 
 * `WEBMAKER_URL` is the URL for the user-facing Webmaker site. It will
   be used for display purposes only, as a means to direct users to
@@ -59,13 +61,6 @@ string), the boolean is true; otherwise, it's false.
 * `ORIGIN` is the origin of the server, as it appears
   to users. If `DEBUG` is enabled, this defaults to
   `http://localhost:PORT`. Otherwise, it must be defined.
-
-* `ENABLE_STUBBYID` represents a boolean value. If it *and* `DEBUG` are
-  both true, then the [stubbyid][] persona simulator is enabled. This allows
-  anyone to easily log in as anyone they want, which makes manual testing
-  and debugging easier. However, it should also *never* be enabled on
-  production sites, which is why `DEBUG` must also be enabled for this
-  feature to work.
 
 * `PORT` is the port that the server binds to. Defaults to 3000.
 
@@ -110,6 +105,5 @@ Build/install [jscoverage][], run `make test-cov`, then open
 `coverage.html` in a browser.
 
   [PhantomJS]: http://phantomjs.org/
-  [stubbyid]: http://toolness.github.io/stubbyid/
   [mocha(1)]: http://visionmedia.github.io/mocha/#usage
   [jscoverage]: https://github.com/visionmedia/node-jscoverage

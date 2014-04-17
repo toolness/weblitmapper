@@ -39,12 +39,12 @@ describe("template middleware", function() {
     }}).get('/csrf').expect('string38', done);
   });
 
-  it('defines email in res.locals', function(done) {
+  it('defines username in res.locals', function(done) {
     request({testRoutes: {
-      'GET /email': function(req, res) {
-        res.send(typeof(res.locals.email) + res.locals.email.length);
+      'GET /username': function(req, res) {
+        res.send(typeof(res.locals.username) + res.locals.username.length);
       }
-    }}).get('/email').expect('string0', done);
+    }}).get('/username').expect('string0', done);
   });
 });
 
@@ -73,9 +73,9 @@ describe("layout.html", function() {
       .end(done);
   });
 
-  it('defines session-email meta tag', function(done) {
-    layoutRequest({resLocals: {email: "foo@bar.org"}})
-      .expect(/<meta name="session-email" content="foo@bar.org">/)
+  it('defines session-username meta tag', function(done) {
+    layoutRequest({resLocals: {username: "foo"}})
+      .expect(/<meta name="session-username" content="foo">/)
       .end(done);
   });
 
