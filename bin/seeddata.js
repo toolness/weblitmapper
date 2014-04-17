@@ -22,7 +22,7 @@ rl.question("Are you sure you want to continue? ", function(answer) {
 
   async.series([
     db.wipe,
-    db.loadFixture(require('../test/fixture/weblit-resources.json'))
+    db.loadFixture(require('../test/fixture/weblitmapper-export-2014-04-17.json'))
   ], function(err) {
     if (err) throw err;
     console.log("Done.");
