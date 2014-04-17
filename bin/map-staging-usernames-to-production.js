@@ -1,4 +1,5 @@
 var fs = require('fs');
+var crypto = require('crypto');
 var path = require('path');
 var through = require('through');
 var request = require('request');
@@ -16,6 +17,16 @@ var PROD_PASSWORD = process.argv[3];
 var STAGING_URL = process.env.LOGINAPI_URL;
 var STAGING_USERNAME = (process.env.LOGINAPI_AUTH || '').split(':')[0];
 var STAGING_PASSWORD = (process.env.LOGINAPI_AUTH || '').split(':')[1];
+
+function md5(str) {
+  var md5sum = crypto.createHash('md5');
+  md5sum.update(str);
+  return md5sum.digest('hex')
+}
+
+function hashEmail(email) {
+  return md5(email.toLowerCase().trim());
+}
 
 function getEmailForStagingUsernameOrId(username, cb) {
   var urlPath = typeof(username) == 'string' ? '/user/username/'
@@ -100,14 +111,24 @@ function emailToProdUsernameMapper(cache) {
     function processLikes() {
       make.productionUsername = cache[make.email];
       async.mapSeries(make.emailLikes, function(email, cb) {
-        if (email in cache) return cb(null, cache[email]);
+        function success(username) {
+          if (!username) {
+            console.error('no production username for ' +
+                          email + ', featured in a like');
+
+            return cb(null, null);
+          }
+          cb(null, {
+            username: username,
+            emailHash: hashEmail(email)
+          });
+        }
+
+        if (email in cache) return success(cache[email]);
         getProdUsernameForEmail(email, function(err, username) {
           if (err) return cb(err);
           cache[email] = username;
-          if (!username)
-            console.error('no production username for ' +
-                          make.email + ', featured in a like');
-          cb(null, cache[email]);
+          success(cache[email]);
         });
       }, function(err, productionLikes) {
         if (err) return self.emit('error', err);
