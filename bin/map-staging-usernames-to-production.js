@@ -1,3 +1,4 @@
+var fs = require('fs');
 var path = require('path');
 var through = require('through');
 var request = require('request');
@@ -5,6 +6,8 @@ var async = require('async');
 var JSONStream = require('JSONStream');
 
 var WeblitStream = require('../lib/weblit-stream');
+
+var CACHE_FILENAME = 'staging-usernames-to-production.cache.json';
 
 var PROD_URL = 'https://login.webmaker.org';
 var PROD_USERNAME = process.argv[2];
@@ -60,9 +63,7 @@ function getProdUsernameForEmail(email, cb) {
   });
 }
 
-function stagingUsernameAndIdToEmailMapper() {
-  var cache = {};
-
+function stagingUsernameAndIdToEmailMapper(cache) {
   return through(function(make) {
     var self = this;
     var username = make.username;
@@ -92,9 +93,7 @@ function stagingUsernameAndIdToEmailMapper() {
   });
 }
 
-function emailToProdUsernameMapper() {
-  var cache = {};
-
+function emailToProdUsernameMapper(cache) {
   return through(function(make) {
     var self = this;
 
@@ -142,7 +141,10 @@ function showHelpAndExit() {
     '',
     'Also ensure that LOGINAPI_URL and LOGINAPI_AUTH point to a ',
     'staging or development instance of the login API (see README.md ',
-    'for more information).'
+    'for more information).',
+    '',
+    'The file ' + CACHE_FILENAME + ' will be used to store',
+    'cached data. Feel free to modify or delete it.'
   ].join('\n'));
 
   process.exit(1);
@@ -152,13 +154,25 @@ if (!(PROD_USERNAME && PROD_PASSWORD &&
       STAGING_URL && STAGING_USERNAME && STAGING_PASSWORD))
   showHelpAndExit();
 
+var cache = {
+  staging: {},
+  production: {}
+};
+
+if (fs.existsSync(CACHE_FILENAME))
+  cache = JSON.parse(fs.readFileSync(CACHE_FILENAME, 'utf-8'));
+
 WeblitStream()
-  .pipe(stagingUsernameAndIdToEmailMapper())
-  .pipe(emailToProdUsernameMapper())
+  .pipe(stagingUsernameAndIdToEmailMapper(cache.staging))
+  .pipe(emailToProdUsernameMapper(cache.production))
   .on('data', function(make) {
     if (!make.productionUsername)
       console.error('no production username for ' + make.username +
                     ' (' + make.email + ')');
+  })
+  .on('end', function() {
+    fs.writeFileSync(CACHE_FILENAME,
+                     JSON.stringify(cache, null, 2), 'utf-8');
   })
   .pipe(JSONStream.stringify())
   .pipe(process.stdout);
