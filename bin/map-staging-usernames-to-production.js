@@ -201,6 +201,7 @@ WeblitStream()
                          'emailHash', 'createdAt', 'tags');
     newMake.likes = make.productionLikes;
     newMake.username = make.productionUsername;
+    newMake.model = "WeblitResource";
     this.queue(newMake);
   }))
   .pipe(JSONStream.stringify())
