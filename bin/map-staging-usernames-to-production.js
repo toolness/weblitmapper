@@ -1,6 +1,7 @@
 var path = require('path');
 var through = require('through');
 var request = require('request');
+var async = require('async');
 var JSONStream = require('JSONStream');
 
 var WeblitStream = require('../lib/weblit-stream');
@@ -13,9 +14,11 @@ var STAGING_URL = process.env.LOGINAPI_URL;
 var STAGING_USERNAME = (process.env.LOGINAPI_AUTH || '').split(':')[0];
 var STAGING_PASSWORD = (process.env.LOGINAPI_AUTH || '').split(':')[1];
 
-function getEmailForStagingUsername(username, cb) {
+function getEmailForStagingUsernameOrId(username, cb) {
+  var urlPath = typeof(username) == 'string' ? '/user/username/'
+                                             : '/user/id/';
   request({
-    url: STAGING_URL + '/user/username/' + username,
+    url: STAGING_URL + urlPath + username,
     auth: {
       user: STAGING_USERNAME,
       pass: STAGING_PASSWORD,
@@ -27,7 +30,7 @@ function getEmailForStagingUsername(username, cb) {
       return cb(new Error('username ' + username + ' not found'), null);
     } else if (res.statusCode == 200) {
       body = JSON.parse(body);
-      return cb(null, body.user.email);
+      return cb(null, body.user.email, body.user.username, body.user.id);
     }
     return cb(new Error('unexpected status code: ' +
                         res.statusCode));
@@ -57,22 +60,34 @@ function getProdUsernameForEmail(email, cb) {
   });
 }
 
-function stagingUsernameToEmailMapper() {
+function stagingUsernameAndIdToEmailMapper() {
   var cache = {};
 
   return through(function(make) {
     var self = this;
+    var username = make.username;
 
-    function queue() {
-      make.email = cache[make.username];
-      self.queue(make);
+    function processLikes() {
+      make.email = cache[username];
+      async.mapSeries(make.likes, function(id, cb) {
+        if (id in cache) return cb(null, cache[id]);
+        getEmailForStagingUsernameOrId(id, function(err, email, username) {
+          if (err) return cb(err);
+          cache[username] = cache[id] = email;
+          cb(null, cache[id]);
+        });
+      }, function(err, emailLikes) {
+        if (err) return self.emit('error', err);
+        make.emailLikes = emailLikes;
+        self.queue(make);
+      });
     }
 
-    if (make.username in cache) return queue();
-    getEmailForStagingUsername(make.username, function(err, email) {
+    if (username in cache) return processLikes();
+    getEmailForStagingUsernameOrId(username, function(err, email, _, id) {
       if (err) return self.emit('error', err);
-      cache[make.username] = email;
-      queue();
+      cache[username] = cache[id] = email;
+      processLikes();
     });
   });
 }
@@ -83,16 +98,32 @@ function emailToProdUsernameMapper() {
   return through(function(make) {
     var self = this;
 
-    function queue() {
+    function processLikes() {
       make.productionUsername = cache[make.email];
-      self.queue(make);
+      async.mapSeries(make.emailLikes, function(email, cb) {
+        if (email in cache) return cb(null, cache[email]);
+        getProdUsernameForEmail(email, function(err, username) {
+          if (err) return cb(err);
+          cache[email] = username;
+          if (!username)
+            console.error('no production username for ' +
+                          make.email + ', featured in a like');
+          cb(null, cache[email]);
+        });
+      }, function(err, productionLikes) {
+        if (err) return self.emit('error', err);
+        make.productionLikes = productionLikes.filter(function(like) {
+          return !!like;
+        });
+        self.queue(make);
+      });
     }
 
-    if (make.email in cache) return queue();
+    if (make.email in cache) return processLikes();
     getProdUsernameForEmail(make.email, function(err, username) {
       if (err) return self.emit('error', err);
       cache[make.email] = username;
-      queue();
+      processLikes();
     });
   });  
 }
@@ -122,7 +153,7 @@ if (!(PROD_USERNAME && PROD_PASSWORD &&
   showHelpAndExit();
 
 WeblitStream()
-  .pipe(stagingUsernameToEmailMapper())
+  .pipe(stagingUsernameAndIdToEmailMapper())
   .pipe(emailToProdUsernameMapper())
   .on('data', function(make) {
     if (!make.productionUsername)
