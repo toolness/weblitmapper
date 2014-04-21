@@ -26,6 +26,7 @@ rl.question("Are you sure you want to continue? ", function(answer) {
   ], function(err) {
     if (err) throw err;
     console.log("Done.");
-    process.exit(0);
+    db.close();
+    rl.close();
   });
 });
