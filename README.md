@@ -26,6 +26,7 @@ npm test
 source .env.example
 export WMCONNECT_API_KEY='your Webmaker Connect API key goes here'
 export WMCONNECT_API_SECRET='your Webmaker Connect API secret goes here'
+node bin/migrate.js
 node bin/app.js
 ```
 

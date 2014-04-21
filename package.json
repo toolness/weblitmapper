@@ -7,7 +7,6 @@
     "test": "node node_modules/mocha/bin/mocha test/*.test.js --check-leaks -R spec"
   },
   "devDependencies": {
-    "async": "0.7.0",
     "csvrow": "0.1.0",
     "mocha": "1.12.0",
     "should": "1.2.2",
@@ -15,6 +14,7 @@
     "supertest": "0.7.1"
   },
   "dependencies": {
+    "async": "0.7.0",
     "oauth": "0.9.11",
     "mongoose": "3.8.8",
     "express": "3.4.4",
