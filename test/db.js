@@ -1,15 +1,9 @@
 var assert = require('assert');
-var fs = require('fs');
 var async = require('async');
 var _ = require('underscore');
 
+var allModels = require('../').model.all;
 var db = Object.create(require('../').db);
-
-function loadAllModels() {
-  fs.readdirSync(__dirname + '/../lib/model').forEach(function(filename) {
-    require('../').module('./model/' + filename);
-  });
-}
 
 assert(!db.wipe);
 
@@ -17,8 +11,8 @@ db.wipe = function(cb) {
   function wipe() {
     db.db.dropDatabase(function(err) {
       if (err) return cb(err);
-      async.each(Object.keys(db.models), function(modelName, cb) {
-        db.models[modelName].ensureIndexes(cb);
+      async.each(allModels(), function(model, cb) {
+        model.ensureIndexes(cb);
       }, cb);
     });
   }
@@ -40,7 +34,5 @@ db.loadFixture = function(models, cb) {
 
   return cb ? loadFixture(cb) : loadFixture;
 };
-
-loadAllModels();
 
 module.exports = db;
