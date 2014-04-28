@@ -7,6 +7,10 @@ describe('parseSearchQuery()', function() {
     parse('').should.eql({});
   });
 
+  it('should set allText search terms', function() {
+    parse('hi there').allText.toString().should.eql('/hi there/i');
+  });
+
   it('should convert hashtags to weblit tags', function() {
     parse('#explor #build').should.eql({
       tags: ['Exploring', 'Building']
