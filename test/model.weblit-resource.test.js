@@ -107,6 +107,43 @@ describe('WeblitResource (when saved)', function() {
       done();
     });
   });
+
+  it('should show up in the statistics', function(done) {
+    var resource = new WeblitResource({
+      url: 'http://example.org',
+      tags: ['weblit-Exploring', 'weblit-Search']
+    });
+    resource.save(function(err) {
+      if (err) return done(err);
+      WeblitResource.getStats(function(err, stats) {
+        if (err) return done(err);
+        stats.should.eql({
+          "total": 1,
+          "tagCounts": {
+            "Exploring": 1,
+            "Navigation": 0,
+            "WebMechanics": 0,
+            "Search": 1,
+            "Credibility": 0,
+            "Security": 0,
+            "Building": 0,
+            "Composing": 0,
+            "Remixing": 0,
+            "DesignAccessibility": 0,
+            "Coding": 0,
+            "Infrastructure": 0,
+            "Connecting": 0,
+            "Sharing": 0,
+            "Collaborating": 0,
+            "Community": 0,
+            "Privacy": 0,
+            "OpenPractices": 0
+          }
+        });
+        done();
+      });
+    });
+  });
 });
 
 describe('WeblitResource (without being saved)', function() {
