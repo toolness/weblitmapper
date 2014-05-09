@@ -37,6 +37,10 @@ describe('parseSearchQuery()', function() {
     parse(' user:bop ').should.eql({username: 'bop'});
   });
 
+  it('should recognize sort:<criteria>', function() {
+    parse(' sort:likes ').should.eql({sort: 'likes'});
+  });
+
   it('should convert to mongo query if option is provided', function() {
     parse('', {mongo: true}).should.eql({
       $query: {tags: {$not: {$size: 0}}},
@@ -50,6 +54,22 @@ describe('parseSearchQuery.mongo()', function() {
     parse.mongo({}).should.eql({
       $query: {tags: {$not: {$size: 0}}},
       $orderby: {createdAt: -1}
+    });
+  });
+
+  it('should remove "sort" key from query', function() {
+    should.equal(parse.mongo({sort: 'likes'})['$query'].sort, undefined);
+  });
+
+  it('should sort by likes', function() {
+    parse.mongo({sort: 'likes'})['$orderby'].should.eql({
+      numLikes: -1
+    });
+  });
+
+  it('should sort by created', function() {
+    parse.mongo({sort: 'created'})['$orderby'].should.eql({
+      createdAt: -1
     });
   });
 

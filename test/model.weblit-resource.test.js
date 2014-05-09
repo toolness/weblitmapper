@@ -104,6 +104,7 @@ describe('WeblitResource (when saved)', function() {
       if (err) return done(err);
       resource.likes[0].emailHash
         .should.eql('0bc83cb571cd1c50ba6f3e8a78ef1346');
+      resource.numLikes.should.eql(1);
       done();
     });
   });
