@@ -1,5 +1,5 @@
-var timer = document.getElementById('timeTillClose');
-var timerVal = 5;
+var timer = document.getElementById('time-till-close');
+var timerVal = parseInt(timer.innerHTML, 10);
 
 setInterval(function(){
   timer.innerHTML = timerVal - 1;
@@ -8,4 +8,4 @@ setInterval(function(){
 
 setTimeout(function(){
   window.close();
-}, 5000);
+}, timerVal * 1000);

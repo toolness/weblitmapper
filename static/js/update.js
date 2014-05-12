@@ -6,6 +6,6 @@ $(function() {
 
   // detect if modal window OR popup (page has parent)
   if (window.opener !== null || window.dialogArguments !== undefined) {
-    document.querySelector('form').setAttribute('action', '?from_bookmarklet=1');
+    document.querySelector('input[name=bookmarklet]').value = true;
   }
 });
