@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	{% set flashMessages = fetchAndClearFlashMessages() %}
+    {% for message in flashMessages %}
+		<div class="alert alert-{{ message.category }}">
+        	{{ message.content }}
+    	</div>
+	{% endfor %}
+	<p>This window will close in <span id="timeTillClose">5</span> seconds, OR <a href="javascript:(function(){window.close();})()">Click here</a> to close now.</p>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ STATIC_ROOT }}/js/bookmarklet-close.js"></script>
+{% endblock %}
