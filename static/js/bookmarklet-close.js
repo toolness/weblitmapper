@@ -9,3 +9,7 @@ setInterval(function(){
 setTimeout(function(){
   window.close();
 }, timerVal * 1000);
+
+$('a[data-close-window]').on('click', function(){
+  window.close();
+});
