@@ -106,5 +106,5 @@ Build/install [jscoverage][], run `make test-cov`, then open
 `coverage.html` in a browser.
 
   [PhantomJS]: http://phantomjs.org/
-  [mocha(1)]: http://visionmedia.github.io/mocha/#usage
+  [mocha(1)]: http://mochajs.org/#usage
   [jscoverage]: https://github.com/visionmedia/node-jscoverage
